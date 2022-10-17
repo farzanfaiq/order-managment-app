@@ -22,3 +22,49 @@ code {
 .text-center{
   text-align: center;
 }
+
+.bg-white{
+  background: #fff;
+}
+
+
+/* Padding */
+.p-1{
+  padding: 8px;
+}
+.p-12{
+  padding: 96px;
+}
+
+/* Margin */
+.my-1{
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.my-2{
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+
+/* Custom */
+.oma-form label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.oma-form .ant-input{
+  font-size: 16px;
+  line-height: 2;
+}
+
+.oma-form .ant-form-item{
+  margin-bottom: 17px;
+}
+
+.oma-form .ant-btn{
+  height: 36px;
+  width: 150px;
+  font-size: 16px;
+}

@@ -1,9 +1,13 @@
-import { Row, Col, Typography, Button, Checkbox, Form, Input } from 'antd';
+import { Row, Col, Typography, Button, Checkbox, Form, Input, Layout } from 'antd';
 import React from 'react';
+
+import { useNavigate } from "react-router-dom";
 
 const login = () => {
     const onFinish = (values) => {
-    console.log('Success:', values);
+        console.log('Success:', values);
+    //     let navigate = useNavigate();   
+    //    navigate('/user/dashboard');
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -11,7 +15,8 @@ const login = () => {
     
     const { Title, Paragraph, Text, Link } = Typography;
     return (
-      <Row className='align-items-center h-100'>
+        <Layout className='h-100 p-12'>
+            <Row className='align-items-center bg-white'>
           <Col span={12}>
               <div className='text-center'>
                   <img
@@ -22,22 +27,26 @@ const login = () => {
               </div>
           </Col>
           <Col span={12}>
-              <Title level={5}>Company Logo</Title>
-              <Title level={3}>Login to your account</Title>
+                    <img
+                        width="150"
+                        src='./logo.png'
+                    />
+              <Title level={3} className="my-2">Login to your account</Title>
               <Form
                 name="basic"
                 labelCol={{
                     span: 24,
                 }}
                 wrapperCol={{
-                    span: 16,
+                    span: 20,
                 }}
                 initialValues={{
                     remember: true,
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
-                autoComplete="off"
+                        autoComplete="off"
+                        className='oma-form'
                 >
       <Form.Item
         label="Username"
@@ -48,8 +57,9 @@ const login = () => {
             message: 'Please input your username!',
           },
         ]}
+        
       >
-        <Input />
+        <Input placeholder='Enter Username' />
       </Form.Item>
 
       <Form.Item
@@ -62,7 +72,7 @@ const login = () => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password placeholder='Enter Password' />
       </Form.Item>
 
       <Form.Item
@@ -87,6 +97,7 @@ const login = () => {
                   </Form>
           </Col>
             </Row>
+      </Layout>
             
   );
 };

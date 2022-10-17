@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import Sider from "antd/lib/layout/Sider";
+import { Menu } from "antd";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -7,14 +10,6 @@ import {
 } from '@ant-design/icons';
 
 
-import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
-import BodyLayout from './BodyLayout';
-import FooterLayout from './FooterLayout';
-import SidebarLayout from './SidebarLayout';
-
-
-const {  Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -34,21 +29,14 @@ const items = [
   getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Files', '9', <FileOutlined />),
 ];
-const MainLayout = () => {
+const SidebarLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout
-      style={{
-        minHeight: '100vh',
-          }}
-          className="ant-layout-has-sider"
-    >
-      <SidebarLayout />
-      <Layout className="site-layout">
-            <BodyLayout />
-        <FooterLayout />
-      </Layout>
-    </Layout>
-  );
-};
-export default MainLayout;
+       <Sider  collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <div className="logo" />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      </Sider>
+    )
+}
+
+export default SidebarLayout;
