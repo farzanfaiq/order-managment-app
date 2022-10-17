@@ -1,13 +1,11 @@
 import React from "react";
 
-
-import Login from '../components/auth/login';
-import AreaManger from '../components/area_manager/index';
-
+import Login from "../components/auth/login";
+import AreaManger from "../components/area_manager/index";
 
 const routes = [
-    { path: '/', component: <Login /> },
-    { path: '/area-manager', component: <AreaManger /> }
+  { path: "/login", component: <Login /> },
+  { path: "/", component: <AreaManger /> },
 ];
 
 export default routes;
