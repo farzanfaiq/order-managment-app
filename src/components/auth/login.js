@@ -1,37 +1,34 @@
+import React, {useContext} from 'react';
 import { Row, Col, Typography, Button, Checkbox, Form, Input, Layout } from 'antd';
-import React from 'react';
 import { Navigate } from "react-router-dom";
+import { AuthContext } from '../../Contexts/AuthContext';
 
-const login = () => {
+const Login = () => {
+  const { setisLoggedIn } = useContext(AuthContext);
   const onFinish = (values) => {
-//       fetch("http://127.0.0.1:8000/api/auth/login", {
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     method: "POST",
-//     body: JSON.stringify(values)
-// })
-//       .then(res => res.json())
-//       .then(
-//         (result) => {
-//           this.setState({
-//             isLoaded: true,
-//             items: result.items
-//           });
-//         },
-//         // Note: it's important to handle errors here
-//         // instead of a catch() block so that we don't swallow
-//         // exceptions from actual bugs in components.
-//         (error) => {
-//           this.setState({
-//             isLoaded: true,
-//             error
-//           });
-//         }
-//       )
-        // console.log('Success:', values);
-       <Navigate to="/rider"></Navigate>
+      fetch("http://127.0.0.1:8000/api/auth/login", {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify(values)
+      })
+      .then(
+        (result) => {
+        
+          
+          
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setisLoggedIn(false);
+          console.log(error)
+        }
+      )
+    console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -73,17 +70,17 @@ const login = () => {
                         className='oma-form'
                 >
       <Form.Item
-        label="Username"
-        name="username"
+        label="Email"
+        name="email"
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: 'Please input your email!',
           },
         ]}
         
       >
-        <Input placeholder='Enter Username' />
+        <Input placeholder='Enter Email' />
       </Form.Item>
 
       <Form.Item
@@ -125,4 +122,4 @@ const login = () => {
             
   );
 };
-export default login;
+export default Login;
