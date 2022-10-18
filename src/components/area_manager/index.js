@@ -62,13 +62,12 @@ const AreaManager = () => {
   const { Title, Paragraph, Text, Link } = Typography;
   return (
     <div>
-      <Divider />
 
       <Row justify="space-between">
         <Title level={3} className="my-2">
-          Area Manager
+          Area Managers
         </Title>
-        <Button className="btn-add my-2">Add Rider</Button>
+        <Button className="btn-add my-2">Add Manager</Button>
       </Row>
 
       <Table columns={columns} dataSource={data} />

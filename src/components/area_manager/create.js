@@ -8,9 +8,14 @@ import {
   Typography,
   Col,
   Input,
+  Form,
+  Upload,
+  Select,
 } from "antd";
-
-const create = () => {
+import { UploadOutlined } from "@ant-design/icons";
+const { Option } = Select;
+const CreateManager = () => {
+  const { Title, Paragraph, Text, Link } = Typography;
   const onFinish = (values) => {
     console.log("Success:", values);
     //     let navigate = useNavigate();
@@ -20,19 +25,35 @@ const create = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <Layout className="h-100 p-12">
-      <Row className="align-items-center bg-white">
-        <Col span={12}>
-          <div className="text-center">
-            <img
-              width={500}
-              height={500}
-              src="https://img.freepik.com/free-vector/authentication-concept-illustration_114360-2168.jpg?size=338&ext=jpg&ga=GA1.2.777073396.1599399655"
-              alt=""
-            />
-          </div>
+    <Layout>
+      <Row className="align-items-start">
+        <Col span={24}>
+          <Title level={3} className="my-2">
+            Add Area Manager
+          </Title>
+          <Divider />
         </Col>
-        <Col span={12}>
+        <Col span={6}>
+          <Form.Item
+            label="Uplaod Profile Pic"
+            name="upload"
+            rules={[
+              {
+                required: true,
+                message: "Please upload your Profile Picture!",
+                type: "file",
+              },
+            ]}
+          >
+            <Upload name="logo" action="/upload.do" listType="picture">
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
+        </Col>
+        <Col span={18}>
+          <Title level={3} className="my-2">
+            Add Details
+          </Title>
           <Form
             name="basic"
             labelCol={{
@@ -99,12 +120,15 @@ const create = () => {
                 },
               ]}
             >
-              <Input placeholder="Enter Area" />
+              <Select placeholder="Select Area">
+                <Option value="Clifton">Clifton</Option>
+                <Option value="Tariq Road">Tariq Road</Option>
+              </Select>
             </Form.Item>
 
             <Form.Item
               label="ZIP Code"
-              name="zip code"
+              name="zip_code"
               rules={[
                 {
                   required: true,
@@ -114,6 +138,21 @@ const create = () => {
             >
               <Input placeholder="Enter ZIP Code" />
             </Form.Item>
+            {/* <Form.Item
+              label="Uplaod Profile Pic"
+              name="upload"
+              rules={[
+                {
+                  required: true,
+                  message: "Please upload your Profile Picture!",
+                  type: "file",
+                },
+              ]}
+            >
+              <Upload name="logo" action="/upload.do" listType="picture">
+                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+              </Upload>
+            </Form.Item> */}
 
             <Form.Item
               wrapperCol={{
@@ -131,4 +170,4 @@ const create = () => {
   );
 };
 
-export default create;
+export default CreateManager;
