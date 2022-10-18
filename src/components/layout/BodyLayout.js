@@ -17,16 +17,14 @@ const BodyLayout = () => {
             margin: '0 16px',
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
+
+          {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          
-         <Outlet />
+          </Breadcrumb> */}
+         {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}> */}
+            <Outlet />
+          {/* </div>  */}
         </Content>
     </React.Fragment>
     )

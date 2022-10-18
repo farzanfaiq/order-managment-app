@@ -1,19 +1,43 @@
 import { Row, Col, Typography, Button, Checkbox, Form, Input, Layout } from 'antd';
 import React from 'react';
-
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const login = () => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    //     let navigate = useNavigate();   
-    //    navigate('/user/dashboard');
+  const onFinish = (values) => {
+//       fetch("http://127.0.0.1:8000/api/auth/login", {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     method: "POST",
+//     body: JSON.stringify(values)
+// })
+//       .then(res => res.json())
+//       .then(
+//         (result) => {
+//           this.setState({
+//             isLoaded: true,
+//             items: result.items
+//           });
+//         },
+//         // Note: it's important to handle errors here
+//         // instead of a catch() block so that we don't swallow
+//         // exceptions from actual bugs in components.
+//         (error) => {
+//           this.setState({
+//             isLoaded: true,
+//             error
+//           });
+//         }
+//       )
+        // console.log('Success:', values);
+       <Navigate to="/rider"></Navigate>
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
     };
     
-    const { Title, Paragraph, Text, Link } = Typography;
+    const { Title} = Typography;
     return (
         <Layout className='h-100 p-12'>
             <Row className='align-items-center bg-white'>
@@ -90,7 +114,7 @@ const login = () => {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
+        <Button type="pink" htmlType="submit">
           Submit
         </Button>
       </Form.Item>

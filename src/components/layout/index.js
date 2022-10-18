@@ -3,7 +3,7 @@ import {
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
-  UserOutlined,
+  UserOutlined, 
 } from '@ant-design/icons';
 
 
@@ -46,7 +46,7 @@ const MainLayout = () => {
       <SidebarLayout />
       <Layout className="site-layout">
             <BodyLayout />
-        <FooterLayout />
+            <FooterLayout />
       </Layout>
     </Layout>
   );
