@@ -3,8 +3,8 @@ import {
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+  UserOutlined, 
+} from '@ant-design/icons';
 
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
@@ -22,8 +22,8 @@ const MainLayout = () => {
     >
       <SidebarLayout />
       <Layout className="site-layout">
-        <BodyLayout />
-        <FooterLayout />
+            <BodyLayout />
+            <FooterLayout />
       </Layout>
     </Layout>
   );
