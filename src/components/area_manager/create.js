@@ -45,7 +45,7 @@ const AreaManagerCreate = () => {
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
     <Form {...layout} className="oma-form" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
       <Form.Item
-        name={['user', 'name']}
+        name={['manager', 'name']}
         label="Name"
         rules={[
           {
@@ -56,34 +56,59 @@ const AreaManagerCreate = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        name={['user', 'email']}
+        name={['manager', 'email']}
         label="Email"
-        rules={[
+         rules={[
           {
             type: 'email',
+            message: 'The input is not valid E-mail!',
           },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name={['user', 'age']}
-        label="Age"
-        rules={[
           {
-            type: 'number',
-            min: 0,
-            max: 99,
+            required: true,
+            message: 'Please input your E-mail!',
           },
         ]}
       >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name={['user', 'website']} label="Website">
         <Input />
       </Form.Item>
-      <Form.Item name={['user', 'introduction']} label="Introduction">
-        <Input.TextArea />
+            <Form.Item
+              name={['manager', 'phone']}
+        label="Phone"
+              rules={[
+         {
+            type: "regexp",
+            pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
+            message: "Format is wrong"
+          },
+          {
+             required: true,
+            message: 'Please input your phone number!',
+          },
+              ]}
+            >
+          <InputNumber  addonBefore="03" style={{ width: '100%' }} />
+            </Form.Item>
+            
+            <Form.Item name={['user', 'areaname']} label="Area Name"
+            rules={[
+          {
+             required: true,
+            message: 'Please input your area!',
+          },
+              ]}
+            >
+        <Input />
+      </Form.Item>
+            <Form.Item name={['user', 'zipcode']} label="Zip Code"
+            rules={[
+              {
+            type: "number",
+             required: true,
+            message: 'Please input your area zipcode!',
+          },
+              ]}
+            >
+        <InputNumber  />
       </Form.Item>
       <Form.Item
         wrapperCol={{

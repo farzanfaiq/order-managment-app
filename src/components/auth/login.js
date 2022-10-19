@@ -6,28 +6,28 @@ import { AuthContext } from '../../Contexts/AuthContext';
 const Login = () => {
   const { setisLoggedIn } = useContext(AuthContext);
   const onFinish = (values) => {
-      fetch("http://127.0.0.1:8000/api/auth/login", {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify(values)
-      })
-      .then(
-        (result) => {
+      // fetch("http://127.0.0.1:8000/api/auth/login", {
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     method: "POST",
+      //     body: JSON.stringify(values)
+      // })
+      // .then(
+      //   (result) => {
         
           
           
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          setisLoggedIn(false);
-          console.log(error)
-        }
-      )
+      //   },
+      //   // Note: it's important to handle errors here
+      //   // instead of a catch() block so that we don't swallow
+      //   // exceptions from actual bugs in components.
+      //   (error) => {
+          setisLoggedIn(true);
+      //     console.log(error)
+      //   }
+      // )
     console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
