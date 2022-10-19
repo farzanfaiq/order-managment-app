@@ -63,9 +63,11 @@ a {
     font-weight: 500;
 }
 
-.oma-form .ant-input{
+.oma-form .ant-input,
+.oma-form .ant-input-number-input{
   font-size: 16px;
   line-height: 2;
+  height: 38px;
 }
 
 .oma-form .ant-form-item{

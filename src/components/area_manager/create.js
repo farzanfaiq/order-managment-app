@@ -1,6 +1,9 @@
-import { Row, Col, Button, Form, Input, InputNumber, Typography } from 'antd';
+import { Row, Col, Button, Form, Input, InputNumber, Typography, message, Upload } from 'antd';
 import React from 'react';
 import { Link } from "react-router-dom";
+import { UploadOutlined } from '@ant-design/icons';
+
+
 
 const layout = {
   labelCol: {
@@ -10,7 +13,6 @@ const layout = {
     span: 16,
   },
 };
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
@@ -22,20 +24,25 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
-/* eslint-enable no-template-curly-in-string */
 
+
+
+/* eslint-enable no-template-curly-in-string */
 const AreaManagerCreate = () => {
   const onFinish = (values) => {
-    console.log(values);
+      message.success('This is a success message');
+        console.log(values);
     };
-    const { Title } = Typography;
+    
+    
+      const { Title } = Typography;
     return (
         <React.Fragment>
       <Row className="my-2 align-items-center">
               <Col span={21}>
                   <Title>Add Area Manager</Title>
               </Col>
-
+              
               <Col span={3}>
                 <Button type="pink" htmlType="button">
                     <Link to="/area-manager">Back</Link>
@@ -86,10 +93,10 @@ const AreaManagerCreate = () => {
           },
               ]}
             >
-          <InputNumber  addonBefore="03" style={{ width: '100%' }} />
+          <InputNumber  addonBefore="03" style={{ width: '100%' }} controls={false} />
             </Form.Item>
 
-            <Form.Item name={['user', 'areaname']} label="Area Name"
+            <Form.Item name={['manager', 'areaname']} label="Area Name"
             rules={[
           {
              required: true,
@@ -99,7 +106,7 @@ const AreaManagerCreate = () => {
             >
         <Input />
       </Form.Item>
-            <Form.Item name={['user', 'zipcode']} label="Zip Code"
+            <Form.Item name={['manager', 'zipcode']} label="Zip Code"
             rules={[
               {
             type: "number",
@@ -108,8 +115,27 @@ const AreaManagerCreate = () => {
           },
               ]}
             >
-        <InputNumber  />
-      </Form.Item>
+        <InputNumber  style={{ width: '100%' }} controls={false} />
+            </Form.Item>
+            
+             <Form.Item name={['manager', 'pic']} label="Picture"
+            rules={[
+              {
+            type: "file",
+             required: true,
+            message: 'Please upload your pic!',
+          },
+              ]}
+            >
+              <Upload
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      listType="picture"
+                className="upload-list-inline"
+                maxCount={1}
+    >
+      <Button icon={<UploadOutlined />}>Upload</Button>
+    </Upload>
+            </Form.Item>
       <Form.Item
         wrapperCol={{
           ...layout.wrapperCol,

@@ -67,7 +67,7 @@ const Rider = () => {
         <Title level={3} className="my-2">
           Riders
         </Title>
-        <Button className="btn-add my-2">
+        <Button type="pink" className="btn-add my-2">
           <Link to="create">+ Add Rider</Link>
         </Button>
       </Row>
