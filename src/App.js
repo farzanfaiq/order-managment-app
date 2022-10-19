@@ -8,7 +8,7 @@ import Login from './components/auth/login';
 import { AuthContext } from './Contexts/AuthContext';
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setisLoggedIn] = useState(true);
   return (
     <React.Fragment>
       <AuthContext.Provider value={{setisLoggedIn}}>

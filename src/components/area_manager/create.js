@@ -86,7 +86,7 @@ const AreaManagerCreate = () => {
           },
               ]}
             >
-          <InputNumber  addonBefore="03" style={{ width: '100%' }} />
+          <InputNumber  addonBefore="03" style={{ width: '100%' }} controls={false} />
             </Form.Item>
             
             <Form.Item name={['user', 'areaname']} label="Area Name"
@@ -107,8 +107,8 @@ const AreaManagerCreate = () => {
             message: 'Please input your area zipcode!',
           },
               ]}
-            >
-        <InputNumber  />
+              >
+        <InputNumber  style={{ width: '100%' }} controls={false} />
       </Form.Item>
       <Form.Item
         wrapperCol={{
