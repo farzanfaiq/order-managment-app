@@ -1,173 +1,128 @@
-import React from "react";
-import {
-  Button,
-  Divider,
-  Table,
-  Layout,
-  Row,
-  Typography,
-  Col,
-  Input,
-  Form,
-  Upload,
-  Select,
-} from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-const { Option } = Select;
-const CreateManager = () => {
-  const { Title, Paragraph, Text, Link } = Typography;
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    //     let navigate = useNavigate();
-    //    navigate('/user/areamanager');
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  return (
-    <Layout>
-      <Row className="align-items-start">
-        <Col span={24}>
-          <Title level={3} className="my-2">
-            Add Area Manager
-          </Title>
-          <Divider />
-        </Col>
-        <Col span={6}>
-          <Form.Item
-            label="Uplaod Profile Pic"
-            name="upload"
-            rules={[
-              {
-                required: true,
-                message: "Please upload your Profile Picture!",
-                type: "file",
-              },
-            ]}
-          >
-            <Upload name="logo" action="/upload.do" listType="picture">
-              <Button icon={<UploadOutlined />}>Click to Upload</Button>
-            </Upload>
-          </Form.Item>
-        </Col>
-        <Col span={18}>
-          <Title level={3} className="my-2">
-            Add Details
-          </Title>
-          <Form
-            name="basic"
-            labelCol={{
-              span: 24,
-            }}
-            wrapperCol={{
-              span: 20,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            className="oma-form"
-          >
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your name!",
-                },
-              ]}
-            >
-              <Input placeholder="Enter Name" />
-            </Form.Item>
+import { Row, Col, Button, Form, Input, InputNumber, Typography } from 'antd';
+import React from 'react';
+import { Link } from "react-router-dom";
 
-            <Form.Item
-              label="Phone Number"
-              name="phone_number"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your phone number!",
-                },
-              ]}
-            >
-              <Input placeholder="Enter Phone Number" />
-            </Form.Item>
-
-            <Form.Item
-              label="Email Address"
-              name="email_address"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                  type: "email",
-                },
-              ]}
-            >
-              <Input placeholder="Enter Email Address" />
-            </Form.Item>
-
-            <Form.Item
-              label="Area"
-              name="area"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your area!",
-                },
-              ]}
-            >
-              <Select placeholder="Select Area">
-                <Option value="Clifton">Clifton</Option>
-                <Option value="Tariq Road">Tariq Road</Option>
-              </Select>
-            </Form.Item>
-
-            <Form.Item
-              label="ZIP Code"
-              name="zip_code"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your ZIP Code!",
-                },
-              ]}
-            >
-              <Input placeholder="Enter ZIP Code" />
-            </Form.Item>
-            {/* <Form.Item
-              label="Uplaod Profile Pic"
-              name="upload"
-              rules={[
-                {
-                  required: true,
-                  message: "Please upload your Profile Picture!",
-                  type: "file",
-                },
-              ]}
-            >
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </Form.Item> */}
-
-            <Form.Item
-              wrapperCol={{
-                span: 16,
-              }}
-            >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
-    </Layout>
-  );
+const layout = {
+  labelCol: {
+    span: 3,
+  },
+  wrapperCol: {
+    span: 16,
+  },
 };
 
-export default CreateManager;
+/* eslint-disable no-template-curly-in-string */
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+};
+/* eslint-enable no-template-curly-in-string */
+
+const AreaManagerCreate = () => {
+  const onFinish = (values) => {
+    console.log(values);
+    };
+    const { Title } = Typography;
+    return (
+        <React.Fragment>
+      <Row className="my-2 align-items-center">
+              <Col span={21}>
+                  <Title>Add Area Manager</Title>
+              </Col>
+
+              <Col span={3}>
+                <Button type="pink" htmlType="button">
+                    <Link to="/rider">Back</Link>
+                </Button>
+              </Col>
+          </Row>
+          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+    <Form {...layout} className="oma-form" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+      <Form.Item
+        name={['manager', 'name']}
+        label="Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name={['manager', 'email']}
+        label="Email"
+         rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+            <Form.Item
+              name={['manager', 'phone']}
+        label="Phone"
+              rules={[
+         {
+            type: "regexp",
+            pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
+            message: "Format is wrong"
+          },
+          {
+             required: true,
+            message: 'Please input your phone number!',
+          },
+              ]}
+            >
+          <InputNumber  addonBefore="03" style={{ width: '100%' }} />
+            </Form.Item>
+
+            <Form.Item name={['user', 'areaname']} label="Area Name"
+            rules={[
+          {
+             required: true,
+            message: 'Please input your area!',
+          },
+              ]}
+            >
+        <Input />
+      </Form.Item>
+            <Form.Item name={['user', 'zipcode']} label="Zip Code"
+            rules={[
+              {
+            type: "number",
+             required: true,
+            message: 'Please input your area zipcode!',
+          },
+              ]}
+            >
+        <InputNumber  />
+      </Form.Item>
+      <Form.Item
+        wrapperCol={{
+          ...layout.wrapperCol,
+          offset: 3,
+        }}
+      >
+        <Button type="pink" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+            </div>
+            </React.Fragment>
+  );
+};
+export default AreaManagerCreate;
