@@ -1,5 +1,6 @@
 import { Button, Divider, Table, Layout, Row, Typography } from "antd";
 import React, { useState } from "react";
+import {Link} from "react-router-dom";
 const columns = [
   {
     title: "Name",
@@ -59,14 +60,16 @@ const data = [
 ];
 
 const Rider = () => {
-  const { Title, Paragraph, Text, Link } = Typography;
+  const { Title, Paragraph, Text } = Typography;
   return (
     <div>
       <Row justify="space-between">
         <Title level={3} className="my-2">
           Riders
         </Title>
-        <Button className="btn-add my-2">Add Rider</Button>
+        <Button className="btn-add my-2">
+          <Link to="create">+ Add Rider</Link>
+        </Button>
       </Row>
 
       <Table columns={columns} dataSource={data} />

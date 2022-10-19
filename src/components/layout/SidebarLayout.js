@@ -3,6 +3,7 @@ import Sider from "antd/lib/layout/Sider";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import {
+  DesktopOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 
@@ -15,8 +16,16 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Area Manager", "1", <UserOutlined />),
-  getItem("Rider", "2", <UserOutlined />),
+  getItem((
+      <Link to="/area-manager">
+        Area Manager
+      </Link>
+  ), '1', <UserOutlined />),
+  getItem((
+      <Link to="/rider">
+        Rider
+      </Link>
+  ), '2', <DesktopOutlined />),
 ];
 const SidebarLayout = () => {
   const [collapsed, setCollapsed] = useState(false);

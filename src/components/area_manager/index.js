@@ -1,5 +1,6 @@
 import { Button, Divider, Table, Layout, Row, Typography } from "antd";
 import React, { useState } from "react";
+import {Link} from "react-router-dom";
 const columns = [
   {
     title: "Name",
@@ -59,7 +60,7 @@ const data = [
 ];
 
 const AreaManager = () => {
-  const { Title, Paragraph, Text, Link } = Typography;
+  const { Title } = Typography;
   return (
     <div>
 
@@ -67,7 +68,9 @@ const AreaManager = () => {
         <Title level={3} className="my-2">
           Area Managers
         </Title>
-        <Button className="btn-add my-2">Add Manager</Button>
+        <Button className="btn-add my-2">
+          <Link to="create">+ Add Manager</Link>
+        </Button>
       </Row>
 
       <Table columns={columns} dataSource={data} />

@@ -8,16 +8,22 @@ import {
   Input,
   Layout,
 } from "antd";
-import React from "react";
+import React, {useContext} from "react";
 import "./login.scss";
+import {AuthContext} from "../../Contexts/AuthContext";
 
-import { useNavigate } from "react-router-dom";
 
 const login = () => {
-  const onFinish = (values) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const {setisLoggedIn} = useContext(AuthContext);
+
+    const onFinish = (values) => {
+        setisLoggedIn(true);
     console.log("Success:", values);
-    //     let navigate = useNavigate();
-    //    navigate('/user/dashboard');
+       //  let navigate = useNavigate();
+       // navigate('/user/dashboard');
+
+
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

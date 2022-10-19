@@ -38,7 +38,7 @@ const AreaManagerCreate = () => {
 
               <Col span={3}>
                 <Button type="pink" htmlType="button">
-                    <Link to="/rider">Back</Link>
+                    <Link to="/area-manager">Back</Link>
                 </Button>
               </Col>
           </Row>
