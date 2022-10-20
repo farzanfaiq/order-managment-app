@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 import { useParams } from "react-router-dom";
 
@@ -92,7 +92,9 @@ const RiderCreate = () => {
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/area-manager">Back</Link>
+            <Link to="/rider">
+              <CaretLeftOutlined /> Back
+            </Link>
           </Button>
         </Col>
       </Row>
