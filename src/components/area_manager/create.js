@@ -4,14 +4,16 @@ import {
   Button,
   Form,
   Input,
-  InputNumber,
   Typography,
   message,
   Upload,
+  AutoComplete,
 } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
+
+import { useParams } from "react-router-dom";
 
 const layout = {
   labelCol: {
@@ -35,17 +37,59 @@ const validateMessages = {
 
 /* eslint-enable no-template-curly-in-string */
 const AreaManagerCreate = () => {
+  const { id } = useParams();
+  const [form] = Form.useForm();
+
+  let fileList = [];
+  if (id != null) {
+    form.setFieldsValue({
+      name: "Farjad",
+      email_address: "farjad@ml.com",
+      phone_number: "289327234983",
+      area: "Karachi",
+      zip_code: 7556,
+    });
+
+    fileList = [
+      {
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+        thumbUrl:
+          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      },
+    ];
+  }
+
   const onFinish = (values) => {
     message.success("This is a success message");
     console.log(values);
   };
 
   const { Title } = Typography;
+  const [options, setOptions] = useState([]);
+  const mockVal = (str, repeat = 1) => ({
+    value: str.repeat(repeat),
+  });
+
+  const onSearch = (searchText) => {
+    setOptions(
+      !searchText
+        ? []
+        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
+    );
+  };
+
+  const onSelect = (data) => {
+    console.log("onSelect", data);
+  };
+
   return (
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>Add Area Manager</Title>
+          <Title>{id != null ? "Edit" : "Add"} Area Manager</Title>
         </Col>
 
         <Col span={3}>
@@ -62,11 +106,12 @@ const AreaManagerCreate = () => {
           {...layout}
           className="oma-form"
           name="nest-messages"
+          form={form}
           onFinish={onFinish}
           validateMessages={validateMessages}
         >
           <Form.Item
-            name={["manager", "name"]}
+            name="name"
             label="Name"
             rules={[
               {
@@ -77,7 +122,7 @@ const AreaManagerCreate = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name={["manager", "email"]}
+            name="email_address"
             label="Email"
             rules={[
               {
@@ -92,30 +137,9 @@ const AreaManagerCreate = () => {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            name={["manager", "phone"]}
-            label="Phone"
-            rules={[
-              {
-                type: "regexp",
-                pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
-                message: "Format is wrong",
-              },
-              {
-                required: true,
-                message: "Please input your phone number!",
-              },
-            ]}
-          >
-            <InputNumber
-              addonBefore="03"
-              style={{ width: "100%" }}
-              controls={false}
-            />
-          </Form.Item> */}
           <Form.Item
-            name="phone"
-            label="Phone No."
+            name="phone_number"
+            label="Phone"
             mask="#########"
             rules={[
               {
@@ -128,11 +152,17 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-            <Input type="number" min={0} style={{ width: "100%" }} />
+            <Input
+              type="number"
+              min={0}
+              addonBefore="03"
+              style={{ width: "100%" }}
+              controls={false}
+            />
           </Form.Item>
 
           <Form.Item
-            name={["manager", "areaname"]}
+            name="area"
             label="Area Name"
             rules={[
               {
@@ -141,21 +171,13 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-            <Input />
+            <AutoComplete
+              options={options}
+              onSelect={onSelect}
+              onSearch={onSearch}
+              size="large"
+            />
           </Form.Item>
-          {/* <Form.Item
-            name={["manager", "zipcode"]}
-            label="Zip Code"
-            rules={[
-              {
-                type: "number",
-                required: true,
-                message: "Please input your area zipcode!",
-              },
-            ]}
-          >
-            <InputNumber style={{ width: "100%" }} controls={false} />
-          </Form.Item> */}
           <Form.Item
             name="zip_code"
             label="Zip Code"
@@ -175,7 +197,7 @@ const AreaManagerCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name={["manager", "pic"]}
+            name="pic"
             label="Picture"
             rules={[
               {
@@ -189,6 +211,7 @@ const AreaManagerCreate = () => {
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture"
               className="upload-list-inline"
+              defaultFileList={[...fileList]}
               maxCount={1}
             >
               <Button icon={<UploadOutlined />}>Upload</Button>

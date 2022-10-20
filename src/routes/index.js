@@ -14,7 +14,13 @@ const routes = [
 
     // Create
     { path: '/area-manager/create', component: <AreaManagerCreate /> },
-    { path: '/rider/create', component: <RiderCreate /> }
+    { path: '/rider/create', component: <RiderCreate /> },
+
+
+    
+    // Edit
+    { path: '/area-manager/edit/:id', component: <AreaManagerCreate /> },
+    { path: '/rider/edit/:id', component: <RiderCreate /> }
 ];
 
 export default routes;

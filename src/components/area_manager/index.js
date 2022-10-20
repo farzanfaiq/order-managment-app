@@ -110,7 +110,7 @@ const AreaManager = () => {
       render: (_text, record) => {
         return (
           <>
-            <Link to="create">
+            <Link to="edit/1">
               <EditOutlined />
             </Link>
             <DeleteOutlined

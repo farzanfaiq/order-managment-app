@@ -60,7 +60,8 @@ a {
 }
 
 .oma-form .ant-input,
-.oma-form .ant-input-number-input {
+.oma-form .ant-input-number-input,
+.omf-form .ant-select-selection-search-input {
   font-size: 16px;
   line-height: 2;
   height: 38px;
