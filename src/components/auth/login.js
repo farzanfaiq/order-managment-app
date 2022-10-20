@@ -149,7 +149,7 @@ const login = () => {
 
             <Form.Item
               name="remember"
-              valuePropName="checked"
+              valuePropName="unchecked"
               wrapperCol={{
                 span: 16,
               }}
@@ -174,7 +174,7 @@ const login = () => {
                 htmlType="submit"
                 className="submit-btn"
               >
-                Submit
+                Login
               </Button>
             </Form.Item>
           </Form>

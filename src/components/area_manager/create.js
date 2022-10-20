@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 import { useParams } from "react-router-dom";
 
@@ -94,7 +94,10 @@ const AreaManagerCreate = () => {
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/area-manager">Back</Link>
+            <Link to="/area-manager">
+              {" "}
+              <CaretLeftOutlined /> Back
+            </Link>
           </Button>
         </Col>
       </Row>
@@ -144,11 +147,11 @@ const AreaManagerCreate = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your phone number!',
+                message: "Please input your phone number!",
               },
               {
                 pattern: /^\d{9}$/,
-                message: "must be a valid phone number"
+                message: "must be a valid phone number",
               },
             ]}
           >
@@ -178,7 +181,9 @@ const AreaManagerCreate = () => {
               size="large"
             />
           </Form.Item>
-          <Form.Item name='zip_code' label="Zip Code"
+          <Form.Item
+            name="zip_code"
+            label="Zip Code"
             mask="#####"
             rules={[
               {
@@ -187,7 +192,7 @@ const AreaManagerCreate = () => {
               },
               {
                 pattern: /^\d{5}$/,
-                message: "must be a valid zip code"
+                message: "must be a valid zip code",
               },
             ]}
           >
@@ -222,7 +227,7 @@ const AreaManagerCreate = () => {
             }}
           >
             <Button type="pink" htmlType="submit">
-              Submit
+              {id != null ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </Form>
