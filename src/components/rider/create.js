@@ -1,10 +1,11 @@
 import { Row, Col, Button, Form, Input, Typography, message, Upload, AutoComplete } from 'antd';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { UploadOutlined } from '@ant-design/icons';
 
 import { useParams } from "react-router-dom";
 import { IMaskInput } from "react-imask";
+
+import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 
 const layout = {
@@ -86,7 +87,10 @@ const RiderCreate = () => {
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/area-manager">Back</Link>
+            <Link to="/rider">
+              {" "}
+              <CaretLeftOutlined /> Back
+            </Link>
           </Button>
         </Col>
       </Row>
@@ -116,7 +120,7 @@ const RiderCreate = () => {
               },
               {
                 min: 16,
-                message: "must be a valid phone number",
+                message: "Must be a valid phone number",
               },
             ]}
           >
@@ -175,7 +179,7 @@ const RiderCreate = () => {
             }}
           >
             <Button type="pink" htmlType="submit">
-              Submit
+              {id != null ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </Form>

@@ -131,7 +131,7 @@ const login = () => {
                 },
                 {
                   pattern: /^\w{6,}$/,
-                  message: "must be a valid password",
+                  message: "Password must consist on 6 characters",
                 },
               ]}
             >

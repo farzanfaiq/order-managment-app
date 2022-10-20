@@ -152,7 +152,7 @@ const AreaManagerCreate = () => {
               },
               {
                 min: 16,
-                message: "must be a valid phone number",
+                message: "Must be a valid phone number",
               },
             ]}
           >
@@ -194,7 +194,7 @@ const AreaManagerCreate = () => {
               },
               {
                 pattern: /^\d{5}$/,
-                message: "must be a valid zip code",
+                message: "Zipcode must consist on 5 numbers",
               },
             ]}
           >
