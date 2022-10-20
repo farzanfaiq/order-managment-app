@@ -122,15 +122,15 @@ const AreaManagerCreate = () => {
           <Form.Item
             name='phone_number'
             label="Phone"
+            mask="#########"
             rules={[
-              {
-                type: "regexp",
-                pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
-                message: "Format is wrong"
-              },
               {
                 required: true,
                 message: 'Please input your phone number!',
+              },
+              {
+                pattern: /^\d{9}$/,
+                message: "must be a valid phone number"
               },
             ]}
           >
@@ -151,17 +151,17 @@ const AreaManagerCreate = () => {
               onSearch={onSearch}
               size="large"
             />
-            {/* <Input /> */}
           </Form.Item>
           <Form.Item name='zip_code' label="Zip Code"
+            mask="#####"
             rules={[
               {
                 required: true,
                 message: 'Please input your area zipcode!',
               },
               {
-                regexp: /^\d{5}/,
-                message: "Invalid zip code",
+                pattern: /^\d{5}$/,
+                message: "must be a valid zip code"
               },
             ]}
           >
