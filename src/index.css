@@ -1,100 +1,96 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 /* General */
 a {
-    color: #D91D6D;
+  color: #d91d6d;
 }
 
 /* Common Classes */
-.h-100{
+.h-100 {
   height: 100vh;
 }
 
-
-
-.align-items-center{
+.align-items-center {
   align-items: center;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.bg-white{
+.bg-white {
   background: #fff;
 }
 
-
 /* Padding */
-.p-1{
+.p-1 {
   padding: 8px;
 }
-.p-12{
+.p-12 {
   padding: 96px;
 }
 
 /* Margin */
-.my-1{
+.my-1 {
   margin-top: 8px !important;
   margin-bottom: 8px !important;
 }
 
-.my-2{
+.my-2 {
   margin-top: 16px !important;
   margin-bottom: 16px !important;
 }
 
-
 /* Custom */
 .oma-form label {
-    font-size: 16px;
-    font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .oma-form .ant-input,
-.oma-form .ant-input-number-input{
+.oma-form .ant-input-number-input {
   font-size: 16px;
   line-height: 2;
   height: 38px;
 }
 
-.oma-form .ant-form-item{
+.oma-form .ant-form-item {
   margin-bottom: 17px;
 }
 
-.ant-btn{
+.ant-btn {
   height: 37px !important;
   width: 150px;
   font-size: 16px;
 }
 
-.ant-checkbox-checked .ant-checkbox-inner{
-    background-color: #D91D6D !important;
-    border-color: #D91D6D !important;
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #d91d6d !important;
+  border-color: #d91d6d !important;
 }
 
-.ant-btn-pink{
+.ant-btn-pink {
   color: #fff !important;
-  border-color: #D91D6D !important;
-  background: #D91D6D !important;
+  border-color: #d91d6d !important;
+  background: #d91d6d !important;
   text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
   box-shadow: 0 2px 0 rgb(0 0 0 / 5%) !important;
 }
 
-.ant-menu-item-selected{
-      background-color: #D91D6D !important;
+.ant-menu-item-selected {
+  background-color: #d91d6d !important;
 }
 
 /* Extend */
@@ -107,4 +103,15 @@ a {
 
 .site-layout .site-layout-background {
   background: #fff;
+}
+/* Chrome, Safari, Edge, Opera  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* / Firefox / */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

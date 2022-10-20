@@ -1,30 +1,32 @@
-import { Button, Modal, Table, Input, Row, Typography, Form, InputNumber, message } from "antd";
+import {
+  Button,
+  Modal,
+  Table,
+  Input,
+  Row,
+  Typography,
+  Form,
+  InputNumber,
+  message,
+} from "antd";
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-
-
-
-
 const AreaManager = () => {
-      const layout = {
-  labelCol: {
-    span: 5,
-  },
-  wrapperCol: {
-    span: 16,
-  },
+  const layout = {
+    labelCol: {
+      span: 5,
+    },
+    wrapperCol: {
+      span: 16,
+    },
   };
 
+  const onFinish = (values) => {
+    message.success("This is a success message");
+  };
 
-   const onFinish = (values) => {
-      message.success('This is a success message');
-    };
-    
-
-    
-  
   const [dataSource, setDataSource] = useState([
     {
       key: "1",
@@ -64,87 +66,83 @@ const AreaManager = () => {
     },
   ]);
 
-
   const columns = [
-   {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-            sorter: (a, b) => a.id - b.id,
-            render: (id, record, index) => { ++index; return index; },
-            showSorterTooltip: false,
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Phone Number",
-    dataIndex: "phone_number",
-  },
-  {
-    title: "Email Address",
-    dataIndex: "email_address",
-  },
-  {
-    title: "Area",
-    dataIndex: "area",
-  },
-  {
-    title: "ZIP Code",
-    dataIndex: "zip_code",
-  },
-  {
-    title: "Pic",
-    dataIndex: "pic",
-    render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    
-    render: (_text, record) => {
-          return (
-            <>
-                <Link to="create">
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      sorter: (a, b) => a.id - b.id,
+      render: (id, record, index) => {
+        ++index;
+        return index;
+      },
+      showSorterTooltip: false,
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phone_number",
+    },
+    {
+      title: "Email Address",
+      dataIndex: "email_address",
+    },
+    {
+      title: "Area",
+      dataIndex: "area",
+    },
+    {
+      title: "ZIP Code",
+      dataIndex: "zip_code",
+    },
+    {
+      title: "Pic",
+      dataIndex: "pic",
+      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />,
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+
+      render: (_text, record) => {
+        return (
+          <>
+            <Link to="create">
               <EditOutlined />
-
-                </Link>
-              <DeleteOutlined
-                onClick={() => {
-                  onDeleteManager(record);
-                }}
-                style={{ color: "red", marginLeft: 12 }}
-              />
-            </>
-          );
-        },
-  },
-  
+            </Link>
+            <DeleteOutlined
+              onClick={() => {
+                onDeleteManager(record);
+              }}
+              style={{ color: "red", marginLeft: 12 }}
+            />
+          </>
+        );
+      },
+    },
   ];
-  
-  const onDeleteManager = (record) => {
-      Modal.confirm({
-        title: "Are you sure, you want to delete this manager record?",
-        okText: "Yes",
-        okType: "danger",
-        onOk: () => {
-          setDataSource((pre) => {
-            message.error('Successfully Deleted');
-            return pre.filter((manager) => manager.key !== record.key);
-          });
-        },
-      });
-  };
 
- 
-  
+  const onDeleteManager = (record) => {
+    Modal.confirm({
+      title: "Are you sure, you want to delete this manager record?",
+      okText: "Yes",
+      okType: "danger",
+      onOk: () => {
+        setDataSource((pre) => {
+          message.error("Successfully Deleted");
+          return pre.filter((manager) => manager.key !== record.key);
+        });
+      },
+    });
+  };
 
   const { Title } = Typography;
 
   return (
     <div>
-
       <Row justify="space-between">
         <Title level={3} className="my-2">
           Area Managers
@@ -155,8 +153,6 @@ const AreaManager = () => {
       </Row>
 
       <Table columns={columns} dataSource={dataSource} />
-
-      
     </div>
   );
 };
