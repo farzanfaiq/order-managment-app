@@ -6,25 +6,23 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-
-import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
-import BodyLayout from './BodyLayout';
-import FooterLayout from './FooterLayout';
-import SidebarLayout from './SidebarLayout';
-
+import { Layout, Menu } from "antd";
+import React, { useState } from "react";
+import BodyLayout from "./BodyLayout";
+import FooterLayout from "./FooterLayout";
+import SidebarLayout from "./SidebarLayout";
 
 const MainLayout = () => {
   return (
     <Layout
       style={{
-        minHeight: '100vh',
-          }}
-          className="ant-layout-has-sider"
+        minHeight: "100vh",
+      }}
+      className="ant-layout-has-sider"
     >
       <SidebarLayout />
       <Layout className="site-layout">
-            <BodyLayout />
+        <BodyLayout />
         <FooterLayout />
       </Layout>
     </Layout>

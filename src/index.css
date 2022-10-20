@@ -12,13 +12,22 @@ code {
     monospace;
 }
 
+/* General */
+a {
+    color: #D91D6D;
+}
+
+/* Common Classes */
 .h-100{
   height: 100vh;
 }
 
+
+
 .align-items-center{
   align-items: center;
 }
+
 .text-center{
   text-align: center;
 }
@@ -54,17 +63,62 @@ code {
     font-weight: 500;
 }
 
-.oma-form .ant-input{
+.oma-form .ant-input,
+.oma-form .ant-input-number-input,
+.omf-form .ant-select-selection-search-input{
   font-size: 16px;
   line-height: 2;
+  height: 38px;
 }
 
 .oma-form .ant-form-item{
   margin-bottom: 17px;
 }
 
-.oma-form .ant-btn{
-  height: 36px;
+.ant-btn{
+  height: 37px !important;
   width: 150px;
   font-size: 16px;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner{
+    background-color: #D91D6D !important;
+    border-color: #D91D6D !important;
+}
+
+.ant-btn-pink{
+  color: #fff !important;
+  border-color: #D91D6D !important;
+  background: #D91D6D !important;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%) !important;
+}
+
+.ant-menu-item-selected{
+      background-color: #D91D6D !important;
+}
+
+/* Extend */
+
+#components-layout-demo-side .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
