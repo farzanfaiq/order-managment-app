@@ -10,7 +10,7 @@ import Dashboard from "../components/dashboard";
 
 const routes = [
   // Index
-  { path: "/", component: <Dashboard /> },
+  { path: "/dashboard", component: <Dashboard /> },
   { path: "/area-manager", component: <AreaManger /> },
   { path: "/rider", component: <Rider /> },
 

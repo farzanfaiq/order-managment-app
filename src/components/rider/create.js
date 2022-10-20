@@ -87,12 +87,12 @@ const RiderCreate = () => {
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>{id != null ? "Edit" : "Add"} Rider </Title>
+          <Title level={3} className="my-2">{id != null ? "Edit" : "Add"} Rider </Title>
         </Col>
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/area-manager">Back</Link>
+            <Link to="/rider">Back</Link>
           </Button>
         </Col>
       </Row>
@@ -122,15 +122,15 @@ const RiderCreate = () => {
           <Form.Item
             name="phone_number"
             label="Phone"
+            mask="#########"
             rules={[
-              {
-                type: "regexp",
-                pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
-                message: "Format is wrong",
-              },
               {
                 required: true,
                 message: "Please input your phone number!",
+              },
+              {
+                pattern: /^\d{9}$/,
+                message: "must be a valid phone number",
               },
             ]}
           >

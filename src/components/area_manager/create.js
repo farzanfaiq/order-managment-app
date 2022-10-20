@@ -89,7 +89,7 @@ const AreaManagerCreate = () => {
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>{id != null ? "Edit" : "Add"} Area Manager</Title>
+          <Title level={3} className="my-2">{id != null ? "Edit" : "Add"} Area Manager</Title>
         </Col>
 
         <Col span={3}>
