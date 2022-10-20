@@ -8,22 +8,19 @@ import {
   Input,
   Layout,
 } from "antd";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "./login.scss";
-import {AuthContext} from "../../Contexts/AuthContext";
-
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const login = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const {setisLoggedIn} = useContext(AuthContext);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { setisLoggedIn } = useContext(AuthContext);
 
-    const onFinish = (values) => {
-        setisLoggedIn(true);
+  const onFinish = (values) => {
+    setisLoggedIn(true);
     console.log("Success:", values);
-       //  let navigate = useNavigate();
-       // navigate('/user/dashboard');
-
-
+    //  let navigate = useNavigate();
+    // navigate('/user/dashboard');
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -129,14 +126,20 @@ const login = () => {
             <Form.Item
               label="Password"
               name="password"
+              mask="######"
               rules={[
                 {
                   required: true,
                   message: "Please input your password!",
                 },
+                {
+                  pattern: /^\w{6,}$/,
+                  message: "must be a valid password",
+                },
               ]}
             >
               <Input.Password
+                min={6}
                 style={{
                   borderRadius: "38px",
                 }}

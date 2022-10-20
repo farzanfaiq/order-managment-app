@@ -1,10 +1,19 @@
-import { Row, Col, Button, Form, Input, Typography, message, Upload, AutoComplete } from 'antd';
-import React, { useState } from 'react';
+import {
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Typography,
+  message,
+  Upload,
+  AutoComplete,
+} from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from "@ant-design/icons";
 
 import { useParams } from "react-router-dom";
-
 
 const layout = {
   labelCol: {
@@ -16,17 +25,15 @@ const layout = {
 };
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-  required: '${label} is required!',
+  required: "${label} is required!",
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: "${label} is not a valid email!",
+    number: "${label} is not a valid number!",
   },
   number: {
-    range: '${label} must be between ${min} and ${max}',
+    range: "${label} must be between ${min} and ${max}",
   },
 };
-
-
 
 /* eslint-enable no-template-curly-in-string */
 const AreaManagerCreate = () => {
@@ -36,29 +43,29 @@ const AreaManagerCreate = () => {
   let fileList = [];
   if (id != null) {
     form.setFieldsValue({
-      name: 'Farjad',
-      email_address: 'farjad@ml.com',
-      phone_number: '289327234983',
-      area: 'Karachi',
-      zip_code: 7556
+      name: "Farjad",
+      email_address: "farjad@ml.com",
+      phone_number: "289327234983",
+      area: "Karachi",
+      zip_code: 7556,
     });
 
     fileList = [
       {
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      }
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+        thumbUrl:
+          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      },
     ];
   }
 
   const onFinish = (values) => {
-    message.success('This is a success message');
+    message.success("This is a success message");
     console.log(values);
   };
-
 
   const { Title } = Typography;
   const [options, setOptions] = useState([]);
@@ -68,19 +75,21 @@ const AreaManagerCreate = () => {
 
   const onSearch = (searchText) => {
     setOptions(
-      !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)],
+      !searchText
+        ? []
+        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
     );
   };
 
   const onSelect = (data) => {
-    console.log('onSelect', data);
+    console.log("onSelect", data);
   };
 
   return (
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>{id != null ? 'Edit' : 'Add'} Area Manager</Title>
+          <Title>{id != null ? "Edit" : "Add"} Area Manager</Title>
         </Col>
 
         <Col span={3}>
@@ -89,12 +98,21 @@ const AreaManagerCreate = () => {
           </Button>
         </Col>
       </Row>
-      <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-        <Form {...layout} className="oma-form" name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
+      <div
+        className="site-layout-background"
+        style={{ padding: 24, minHeight: 360 }}
+      >
+        <Form
+          {...layout}
+          className="oma-form"
+          name="nest-messages"
+          form={form}
+          onFinish={onFinish}
+          validateMessages={validateMessages}
+        >
           <Form.Item
-            name='name'
+            name="name"
             label="Name"
-
             rules={[
               {
                 required: true,
@@ -104,23 +122,23 @@ const AreaManagerCreate = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name='email_address'
+            name="email_address"
             label="Email"
             rules={[
               {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
+                type: "email",
+                message: "The input is not valid E-mail!",
               },
               {
                 required: true,
-                message: 'Please input your E-mail!',
+                message: "Please input your E-mail!",
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name='phone_number'
+            name="phone_number"
             label="Phone"
             mask="#########"
             rules={[
@@ -134,14 +152,22 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-            <Input type='number' min={0} addonBefore="03" style={{ width: '100%' }} controls={false} />
+            <Input
+              type="number"
+              min={0}
+              addonBefore="03"
+              style={{ width: "100%" }}
+              controls={false}
+            />
           </Form.Item>
 
-          <Form.Item name='area' label="Area Name"
+          <Form.Item
+            name="area"
+            label="Area Name"
             rules={[
               {
                 required: true,
-                message: 'Please input your area!',
+                message: "Please input your area!",
               },
             ]}
           >
@@ -157,7 +183,7 @@ const AreaManagerCreate = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your area zipcode!',
+                message: "Please input your area zipcode!",
               },
               {
                 pattern: /^\d{5}$/,
@@ -165,15 +191,17 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-            <Input type='number' min={0} style={{ width: '100%' }} />
+            <Input type="number" min={0} style={{ width: "100%" }} />
           </Form.Item>
 
-          <Form.Item name='pic' label="Picture"
+          <Form.Item
+            name="pic"
+            label="Picture"
             rules={[
               {
                 type: "file",
                 required: true,
-                message: 'Please upload your pic!',
+                message: "Please upload your pic!",
               },
             ]}
           >
