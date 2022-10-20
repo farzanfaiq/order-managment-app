@@ -1,10 +1,19 @@
-import { Row, Col, Button, Form, Input, Typography, message, Upload, AutoComplete } from 'antd';
-import React, { useState } from 'react';
+import {
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Typography,
+  message,
+  Upload,
+  AutoComplete,
+} from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from "@ant-design/icons";
 
 import { useParams } from "react-router-dom";
-
 
 const layout = {
   labelCol: {
@@ -15,20 +24,17 @@ const layout = {
   },
 };
 
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-  required: '${label} is required!',
+  required: "${label} is required!",
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: "${label} is not a valid email!",
+    number: "${label} is not a valid number!",
   },
   number: {
-    range: '${label} must be between ${min} and ${max}',
+    range: "${label} must be between ${min} and ${max}",
   },
 };
-
-
 
 /* eslint-enable no-template-curly-in-string */
 const RiderCreate = () => {
@@ -38,28 +44,27 @@ const RiderCreate = () => {
   let fileList = [];
   if (id != null) {
     form.setFieldsValue({
-      name: 'Farjad',
-      phone_number: '289327234983',
-      area: 'Karachi'
+      name: "Farjad",
+      phone_number: "289327234983",
+      area: "Karachi",
     });
 
     fileList = [
       {
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      }
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+        thumbUrl:
+          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      },
     ];
   }
 
   const onFinish = (values) => {
-    message.success('This is a success message');
+    message.success("This is a success message");
     console.log(values);
   };
-
-
 
   const { Title } = Typography;
   const [options, setOptions] = useState([]);
@@ -69,18 +74,20 @@ const RiderCreate = () => {
 
   const onSearch = (searchText) => {
     setOptions(
-      !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)],
+      !searchText
+        ? []
+        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
     );
   };
 
   const onSelect = (data) => {
-    console.log('onSelect', data);
+    console.log("onSelect", data);
   };
   return (
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>{id != null ? 'Edit' : 'Add'} Rider </Title>
+          <Title>{id != null ? "Edit" : "Add"} Rider </Title>
         </Col>
 
         <Col span={3}>
@@ -89,12 +96,21 @@ const RiderCreate = () => {
           </Button>
         </Col>
       </Row>
-      <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-        <Form {...layout} className="oma-form" name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
+      <div
+        className="site-layout-background"
+        style={{ padding: 24, minHeight: 360 }}
+      >
+        <Form
+          {...layout}
+          className="oma-form"
+          name="nest-messages"
+          form={form}
+          onFinish={onFinish}
+          validateMessages={validateMessages}
+        >
           <Form.Item
-            name='name'
+            name="name"
             label="Name"
-
             rules={[
               {
                 required: true,
@@ -104,32 +120,39 @@ const RiderCreate = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name='phone_number'
+            name="phone_number"
             label="Phone"
             rules={[
               {
                 type: "regexp",
                 pattern: new RegExp("([a-zA-Z]{3,30}\\s*)+"),
-                message: "Format is wrong"
+                message: "Format is wrong",
               },
               {
                 required: true,
-                message: 'Please input your phone number!',
+                message: "Please input your phone number!",
               },
             ]}
           >
-            <Input type='number' min={0} addonBefore="03" style={{ width: '100%' }} controls={false} />
+            <Input
+              type="number"
+              min={0}
+              addonBefore="03"
+              style={{ width: "100%" }}
+              controls={false}
+            />
           </Form.Item>
 
-          <Form.Item name='area' label="Area Name"
+          <Form.Item
+            name="area"
+            label="Area Name"
             rules={[
               {
                 required: true,
-                message: 'Please input your area!',
+                message: "Please input your area!",
               },
             ]}
           >
-
             <AutoComplete
               options={options}
               onSelect={onSelect}
@@ -138,12 +161,14 @@ const RiderCreate = () => {
             />
           </Form.Item>
 
-          <Form.Item name='pic' label="Picture"
+          <Form.Item
+            name="pic"
+            label="Picture"
             rules={[
               {
                 type: "file",
                 required: true,
-                message: 'Please upload your pic!',
+                message: "Please upload your pic!",
               },
             ]}
           >
@@ -164,7 +189,7 @@ const RiderCreate = () => {
             }}
           >
             <Button type="pink" htmlType="submit">
-              Submit
+              {id != null ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </Form>

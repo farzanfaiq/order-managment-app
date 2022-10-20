@@ -4,6 +4,7 @@ import { Breadcrumb, Menu, Dropdown, Space } from "antd";
 import { Outlet } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
+import { Link } from "react-router-dom";
 
 const BodyLayout = () => {
   const items1 = ["1"].map((key) => ({
@@ -84,7 +85,7 @@ const BodyLayout = () => {
 
       <Content
         style={{
-          margin: '0 16px',
+          margin: "0 16px",
         }}
       >
         {/* <Breadcrumb
