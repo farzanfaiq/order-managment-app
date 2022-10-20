@@ -64,7 +64,8 @@ a {
 }
 
 .oma-form .ant-input,
-.oma-form .ant-input-number-input{
+.oma-form .ant-input-number-input,
+.omf-form .ant-select-selection-search-input{
   font-size: 16px;
   line-height: 2;
   height: 38px;
@@ -107,4 +108,17 @@ a {
 
 .site-layout .site-layout-background {
   background: #fff;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
