@@ -131,7 +131,7 @@ const Rider = () => {
 
       <Row justify="space-between">
         <Title level={3} className="my-2">
-          Rider
+          Riders
         </Title>
         <Button type="pink" className="btn-add my-2">
           <Link to="create">+ Add Rider</Link>

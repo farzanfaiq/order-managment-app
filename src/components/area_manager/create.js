@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
+import { IMaskInput } from "react-imask";
 
 import { useParams } from "react-router-dom";
 
@@ -45,7 +46,7 @@ const AreaManagerCreate = () => {
     form.setFieldsValue({
       name: "Farjad",
       email_address: "farjad@ml.com",
-      phone_number: "289327234983",
+      phone_number: "+92(388)83-83834",
       area: "Karachi",
       zip_code: 7556,
     });
@@ -89,7 +90,7 @@ const AreaManagerCreate = () => {
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title>{id != null ? "Edit" : "Add"} Area Manager</Title>
+          <Title level={3} className="my-2">{id != null ? "Edit" : "Add"} Area Manager</Title>
         </Col>
 
         <Col span={3}>
@@ -150,17 +151,18 @@ const AreaManagerCreate = () => {
                 message: "Please input your phone number!",
               },
               {
-                pattern: /^\d{9}$/,
-                message: "must be a valid phone number",
+                min: 16,
+                message: "Must be a valid phone number",
               },
             ]}
           >
-            <Input
-              type="number"
-              min={0}
-              addonBefore="03"
+
+            <IMaskInput
+              mask="+{92}(300)00-00000"
               style={{ width: "100%" }}
-              controls={false}
+              onAccept={(value, mask) => console.log(value, mask)}
+              placeholder="Phone eg +92(331)27-40314"
+              className="ant-input ant-input-status-success"
             />
           </Form.Item>
 
@@ -192,7 +194,7 @@ const AreaManagerCreate = () => {
               },
               {
                 pattern: /^\d{5}$/,
-                message: "must be a valid zip code",
+                message: "Zipcode must consist on 5 numbers",
               },
             ]}
           >

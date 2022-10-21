@@ -13,7 +13,7 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem(<Link to="/">Dashboard</Link>, "1", <PieChartOutlined />),
+  getItem(<Link to="/dashboard">Dashboard</Link>, "1", <PieChartOutlined />),
   getItem(<Link to="/area-manager">Area Manager</Link>, "2", <UserOutlined />),
   getItem(<Link to="/rider">Rider</Link>, "3", <UserOutlined />),
 ];

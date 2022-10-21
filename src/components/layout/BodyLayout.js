@@ -4,7 +4,7 @@ import { Breadcrumb, Menu, Dropdown, Space } from "antd";
 import { Outlet } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const BodyLayout = () => {
   const items1 = ["1"].map((key) => ({
@@ -12,12 +12,19 @@ const BodyLayout = () => {
     label: "User",
     icon: <UserOutlined />,
   }));
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+    // <Navigate to="/login" />
+  }
   const menu = (
     <Menu
       className="dropdown-menu"
       items={[
         {
-          label: <a className="dropdown-item">Logout</a>,
+          label: <a className="dropdown-item" onClick={handleLogout}>Logout</a>,
           key: "1",
         },
       ]}
@@ -26,13 +33,6 @@ const BodyLayout = () => {
 
   return (
     <React.Fragment>
-      {/* <Header
-          className="site-layout-background"
-          style={{
-            padding: 0,
-          }}
-        /> */}
-
       <Header
         className="header"
         style={{
@@ -42,17 +42,6 @@ const BodyLayout = () => {
           lineHeight: "50px",
         }}
       >
-        {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} /> */}
-        {/* <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["1"]}
-          items={items1}
-          style={{
-            display: "flex",
-            justifyContent: "end",
-          }}
-        /> */}
         <Dropdown overlay={menu}>
           <a className="menu-dropdown" onClick={(e) => e.preventDefault()}>
             <Space>
