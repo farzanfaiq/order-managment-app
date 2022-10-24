@@ -1,13 +1,22 @@
-import { Row, Col, Button, Form, Input, Typography, message, Upload, AutoComplete } from 'antd';
-import React, { useState } from 'react';
+import {
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Typography,
+  message,
+  Upload,
+  AutoComplete,
+} from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 import { useParams } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 
-import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
-
+// import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 const layout = {
   labelCol: {
@@ -18,20 +27,17 @@ const layout = {
   },
 };
 
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-  required: '${label} is required!',
+  required: "${label} is required!",
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: "${label} is not a valid email!",
+    number: "${label} is not a valid number!",
   },
   number: {
-    range: '${label} must be between ${min} and ${max}',
+    range: "${label} must be between ${min} and ${max}",
   },
 };
-
-
 
 /* eslint-enable no-template-curly-in-string */
 const RiderCreate = () => {
@@ -41,28 +47,39 @@ const RiderCreate = () => {
   let fileList = [];
   if (id != null) {
     form.setFieldsValue({
-      name: 'Farjad',
-      phone_number: '+92(388)83-83834',
-      area: 'Karachi'
+      name: "Farjad",
+      phone_number: "+92(388)83-83834",
+      area: "Karachi",
     });
 
     fileList = [
       {
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      }
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+        thumbUrl:
+          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      },
     ];
   }
 
   const onFinish = (values) => {
-    message.success('This is a success message');
+    message.success("This is a success message");
     console.log(values);
+
+    const createObj = {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(values),
+    };
+    fetch(
+      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
+      createObj
+    ).then((res) => {
+      console.log(res.json());
+    });
   };
-
-
 
   const { Title } = Typography;
   const [options, setOptions] = useState([]);
@@ -72,18 +89,22 @@ const RiderCreate = () => {
 
   const onSearch = (searchText) => {
     setOptions(
-      !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)],
+      !searchText
+        ? []
+        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
     );
   };
 
   const onSelect = (data) => {
-    console.log('onSelect', data);
+    console.log("onSelect", data);
   };
   return (
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title level={3} className="my-2">{id != null ? 'Edit' : 'Add'} Rider </Title>
+          <Title level={3} className="my-2">
+            {id != null ? "Edit" : "Add"} Rider{" "}
+          </Title>
         </Col>
 
         <Col span={3}>
@@ -94,12 +115,22 @@ const RiderCreate = () => {
           </Button>
         </Col>
       </Row>
-      <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-        <Form {...layout} className="oma-form" name="nest-messages" form={form} onFinish={onFinish} validateMessages={validateMessages}>
+      <div
+        className="site-layout-background"
+        style={{ padding: 24, minHeight: 360 }}
+      >
+        <Form
+          {...layout}
+          className="oma-form"
+          name="nest-messages"
+          form={form}
+          onFinish={onFinish}
+          validateMessages={validateMessages}
+          autoComplete="off"
+        >
           <Form.Item
-            name='name'
+            name="name"
             label="Name"
-
             rules={[
               {
                 required: true,
@@ -124,7 +155,6 @@ const RiderCreate = () => {
               },
             ]}
           >
-
             <IMaskInput
               mask="+{92}(300)00-00000"
               style={{ width: "100%" }}
@@ -132,19 +162,18 @@ const RiderCreate = () => {
               placeholder="Phone eg +92(331)27-40314"
               className="ant-input ant-input-status-success"
             />
-
-
           </Form.Item>
 
-          <Form.Item name='area' label="Area Name"
+          <Form.Item
+            name="area_name"
+            label="Area Name"
             rules={[
               {
                 required: true,
-                message: 'Please input your area!',
+                message: "Please input your area!",
               },
             ]}
           >
-
             <AutoComplete
               options={options}
               onSelect={onSelect}
@@ -153,12 +182,14 @@ const RiderCreate = () => {
             />
           </Form.Item>
 
-          <Form.Item name='pic' label="Picture"
+          <Form.Item
+            name="photo"
+            label="Picture"
             rules={[
               {
                 type: "file",
                 required: true,
-                message: 'Please upload your pic!',
+                message: "Please upload your pic!",
               },
             ]}
           >

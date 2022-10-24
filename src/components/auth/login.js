@@ -10,14 +10,34 @@ import {
 } from "antd";
 import React from "react";
 import "./login.scss";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
 const login = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const onFinish = (values) => {
-    localStorage.setItem("authorize", true);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(values),
+    };
+    fetch(
+      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/login",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.user.name);
+        // Passing token in Local Storage
+        const token = data.access_token;
+        localStorage.setItem("token", token);
+        // Passing name in Local Storage
+        const name = data.user.name;
+        localStorage.setItem("loginName", name);
+        localStorage.setItem("authorize", true);
+        window.location.reload();
+      });
+
     // <Navigate to="/dashboard" />
-    window.location.reload();
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -103,12 +123,16 @@ const login = () => {
             className="oma-form"
           >
             <Form.Item
-              label="Username"
-              name="username"
+              label="Email Address"
+              name="email"
               rules={[
                 {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Please input your E-mail!",
                 },
               ]}
             >
@@ -116,7 +140,7 @@ const login = () => {
                 style={{
                   borderRadius: "38px",
                 }}
-                placeholder="Enter Username"
+                placeholder="Enter Email"
               />
             </Form.Item>
 
@@ -130,8 +154,9 @@ const login = () => {
                   message: "Please input your password!",
                 },
                 {
-                  pattern: /^\w{6,}$/,
-                  message: "Password must consist on 6 characters",
+                  pattern: /^\S{6,25}$/,
+                  message:
+                    "Password must consist of atleast 6 characters and not more than 15 characters",
                 },
               ]}
             >

@@ -1,12 +1,17 @@
-import { Button, Modal, Table, Input, Row, Typography, Form, InputNumber, message } from "antd";
+import {
+  Button,
+  Modal,
+  Table,
+  Input,
+  Row,
+  Typography,
+  Form,
+  InputNumber,
+  message,
+} from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-
-
-
-
-
 const Rider = () => {
   const layout = {
     labelCol: {
@@ -16,14 +21,20 @@ const Rider = () => {
       span: 16,
     },
   };
-
-
-  const onFinish = (values) => {
-    message.success('This is a success message');
+  const getList = {
+    method: "GET",
+    mode: "no-cors",
+    headers: {
+      "Content-type": "application/json",
+      "Access-Control-Allow-Origin": true,
+      "bearer-token": localStorage.getItem("token"),
+    },
   };
-
-
-
+  fetch("https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider", getList).then(
+    (res) => {
+      console.log(res);
+    }
+  );
 
   const [dataSource, setDataSource] = useState([
     {
@@ -56,14 +67,16 @@ const Rider = () => {
     },
   ]);
 
-
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
       sorter: (a, b) => a.id - b.id,
-      render: (id, record, index) => { ++index; return index; },
+      render: (id, record, index) => {
+        ++index;
+        return index;
+      },
       showSorterTooltip: false,
     },
     {
@@ -81,7 +94,7 @@ const Rider = () => {
     {
       title: "Pic",
       dataIndex: "pic",
-      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />
+      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />,
     },
     {
       title: "Action",
@@ -92,7 +105,6 @@ const Rider = () => {
           <>
             <Link to="edit/1">
               <EditOutlined />
-
             </Link>
             <DeleteOutlined
               onClick={() => {
@@ -104,7 +116,6 @@ const Rider = () => {
         );
       },
     },
-
   ];
 
   const onDeleteRider = (record) => {
@@ -114,21 +125,17 @@ const Rider = () => {
       okType: "danger",
       onOk: () => {
         setDataSource((pre) => {
-          message.error('Successfully Deleted');
+          message.error("Successfully Deleted");
           return pre.filter((rider) => rider.key !== record.key);
         });
       },
     });
   };
 
-
-
-
   const { Title } = Typography;
 
   return (
     <div>
-
       <Row justify="space-between">
         <Title level={3} className="my-2">
           Riders
@@ -139,8 +146,6 @@ const Rider = () => {
       </Row>
 
       <Table columns={columns} dataSource={dataSource} />
-
-
     </div>
   );
 };

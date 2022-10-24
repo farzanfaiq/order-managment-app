@@ -5,7 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/index";
 
 import Login from "./components/auth/login";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+
 
 function App() {
   const isLoggedIn = localStorage.getItem("authorize");
@@ -14,7 +15,7 @@ function App() {
     <React.Fragment>
       <BrowserRouter>
         <Routes>
-          {(isLoggedIn) ? (
+          {isLoggedIn ? (
             <Route exact path="/" element={<MainLayout />}>
               {routes.map(({ path, component }, key) => (
                 <Route exact path={path} element={component} key={key} />

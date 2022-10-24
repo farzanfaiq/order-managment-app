@@ -9,22 +9,48 @@ import { Navigate } from "react-router-dom";
 const BodyLayout = () => {
   const items1 = ["1"].map((key) => ({
     key,
-    label: "User",
+    label: localStorage.getItem("loginName"),
     icon: <UserOutlined />,
   }));
 
   const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    window.location.reload();
+    const requestLogout = {
+      method: "POST",
+      // withCredentials: true,
+      // crossorigin: true,
+      mode: "no-cors",
+      headers: {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": true,
+        "bearer-token": localStorage.getItem("token"),
+      },
+    };
+    fetch(
+      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/logout",
+      requestLogout
+    )
+      .then((res) => {
+        localStorage.clear();
+        window.location.reload();
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // <Navigate to="/login" />
-  }
+  };
+
   const menu = (
     <Menu
       className="dropdown-menu"
       items={[
         {
-          label: <a className="dropdown-item" onClick={handleLogout}>Logout</a>,
+          label: (
+            <a className="dropdown-item" onClick={handleLogout}>
+              Logout
+            </a>
+          ),
           key: "1",
         },
       ]}
