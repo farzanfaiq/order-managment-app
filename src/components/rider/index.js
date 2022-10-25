@@ -1,60 +1,27 @@
-import { Button, Modal, Table, Input, Row, Typography, Form, InputNumber, message } from "antd";
-import React, { useState } from "react";
+import { Button, Modal, Table, Row, Typography, message } from "antd";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 
 
-
-
 const Rider = () => {
-  const layout = {
-    labelCol: {
-      span: 5,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
+  const [dataSource, setDataSource] = useState([]);
 
-
-  const onFinish = (values) => {
-    message.success('This is a success message');
-  };
-
-
-
-
-  const [dataSource, setDataSource] = useState([
-    {
-      key: "1",
-      name: "User 1",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "2",
-      name: "User 2",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "3",
-      name: "User 3",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "4",
-      name: "User 4",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      }
+    };
+    fetch(`${process.env.REACT_APP_API_URL}rider`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.riders);
+        setDataSource(data.riders);
+      })
+  }, []);
 
 
   const columns = [
@@ -72,16 +39,16 @@ const Rider = () => {
     },
     {
       title: "Phone Number",
-      dataIndex: "phone_number",
+      dataIndex: "phone",
     },
     {
       title: "Area",
-      dataIndex: "area",
+      dataIndex: "area_name",
     },
     {
       title: "Pic",
       dataIndex: "pic",
-      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />
+      render: (t, r) => r.picture != null ? <img width={30} height={30} src={`http://127.0.0.1:8000${r.picture}`} /> : ''
     },
     {
       title: "Action",
@@ -90,8 +57,9 @@ const Rider = () => {
       render: (_text, record) => {
         return (
           <>
-            <Link to="edit/1">
+            <Link to={`edit/${record.id}`}>
               <EditOutlined />
+
 
             </Link>
             <DeleteOutlined
