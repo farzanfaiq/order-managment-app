@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Row,
   Col,
@@ -8,43 +9,16 @@ import {
   Input,
   Layout,
 } from "antd";
-import React from "react";
-import "./login.scss";
-import { Navigate } from "react-router-dom";
 
-const login = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-  let url = `${process.env.REACT_APP_API_URL}login`;
+const Userlogin = () => {
   const onFinish = (values) => {
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify(values),
-    // };
-    // fetch(url, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data.user.name);
-    //     // Passing token in Local Storage
-    //     const token = data.access_token;
-    //     localStorage.setItem("token", token);
-    //     // Passing name in Local Storage
-    //     const name = data.user.name;
-    //     localStorage.setItem("loginName", name);
-    //     localStorage.setItem("authorize", true);
-    //     window.location.reload();
-    //   });
-    localStorage.setItem("authorize", true);
-    window.location.reload();
-    // <Navigate to="/dashboard" />
+    console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
   const { Title, Paragraph, Text, Link } = Typography;
-
   return (
     <Layout
       style={{
@@ -81,7 +55,7 @@ const login = () => {
                 fontWeight: "bold",
               }}
             >
-              Admin Login
+              User Login
             </h1>
             <h3
               style={{
@@ -205,4 +179,5 @@ const login = () => {
     </Layout>
   );
 };
-export default login;
+
+export default Userlogin;

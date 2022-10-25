@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Row,
   Col,
@@ -7,44 +8,21 @@ import {
   Form,
   Input,
   Layout,
+  Select,
 } from "antd";
-import React from "react";
-import "./login.scss";
-import { Navigate } from "react-router-dom";
+import { IMaskInput } from "react-imask";
+import "./user.scss";
+const { Option } = Select;
 
-const login = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-  let url = `${process.env.REACT_APP_API_URL}login`;
+const Usersignup = () => {
   const onFinish = (values) => {
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify(values),
-    // };
-    // fetch(url, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data.user.name);
-    //     // Passing token in Local Storage
-    //     const token = data.access_token;
-    //     localStorage.setItem("token", token);
-    //     // Passing name in Local Storage
-    //     const name = data.user.name;
-    //     localStorage.setItem("loginName", name);
-    //     localStorage.setItem("authorize", true);
-    //     window.location.reload();
-    //   });
-    localStorage.setItem("authorize", true);
-    window.location.reload();
-    // <Navigate to="/dashboard" />
+    console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
   const { Title, Paragraph, Text, Link } = Typography;
-
   return (
     <Layout
       style={{
@@ -53,25 +31,26 @@ const login = () => {
         backgroundImage: "url(./loginbg.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
+        height: "100%",
       }}
-      className="h-100"
+      //   className="h-100"
     >
       <Row
         style={{
-          height: "75vh",
+          height: "100%",
         }}
         className="align-items-center"
       >
         <Col
           style={{
             background: "#FB2576",
-            height: "100%",
+            height: "100vh",
             marginRight: "80px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
-          span={10}
+          span={8}
         >
           <div className="text-center">
             <h1
@@ -81,7 +60,7 @@ const login = () => {
                 fontWeight: "bold",
               }}
             >
-              Admin Login
+              User Signup
             </h1>
             <h3
               style={{
@@ -94,7 +73,7 @@ const login = () => {
             </h3>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           {/* <img width="150" src="./logo.png" /> */}
           <Title
             style={{
@@ -103,7 +82,7 @@ const login = () => {
             level={3}
             className="my-2"
           >
-            <span style={{ color: "#FB2576" }}>Login</span> to your account to
+            <span style={{ color: "#FB2576" }}>Signup</span> to your account to
             manage all the services and explore our tools.
           </Title>
           <Form
@@ -122,6 +101,64 @@ const login = () => {
             autoComplete="off"
             className="oma-form"
           >
+            <Form.Item
+              name="name"
+              label="Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input
+                style={{
+                  borderRadius: "38px",
+                }}
+                placeholder="Please enter your name!"
+              />
+            </Form.Item>
+            <Form.Item
+              name="gender"
+              label="Gender"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select gender!",
+                },
+              ]}
+            >
+              <Select className="genderSelect" placeholder="Select your gender">
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+                <Option value="other">Other</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="phone_number"
+              label="Phone"
+              mask="#########"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your phone number!",
+                },
+                {
+                  min: 16,
+                  message: "Must be a valid phone number",
+                },
+              ]}
+            >
+              <IMaskInput
+                mask="+{92}(300)00-00000"
+                style={{ width: "100%" }}
+                onAccept={(value, mask) => console.log(value, mask)}
+                placeholder="Phone eg +92(331)27-40314"
+                className="ant-input ant-input-status-success"
+                style={{
+                  borderRadius: "38px",
+                }}
+              />
+            </Form.Item>
             <Form.Item
               label="Email Address"
               name="email"
@@ -159,6 +196,7 @@ const login = () => {
                     "Password must consist of atleast 6 characters and not more than 15 characters",
                 },
               ]}
+              hasFeedback
             >
               <Input.Password
                 min={6}
@@ -168,15 +206,35 @@ const login = () => {
                 placeholder="Enter Password"
               />
             </Form.Item>
-
             <Form.Item
-              name="remember"
-              valuePropName="unchecked"
-              wrapperCol={{
-                span: 16,
-              }}
+              name="confirm"
+              label="Confirm Password"
+              dependencies={["password"]}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Please confirm your password!",
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("The password that you entered does not match!")
+                    );
+                  },
+                }),
+              ]}
             >
-              <Checkbox>Remember me</Checkbox>
+              <Input.Password
+                min={6}
+                style={{
+                  borderRadius: "38px",
+                }}
+                placeholder="Please Confirm Your Password"
+              />
             </Form.Item>
 
             <Form.Item
@@ -196,7 +254,7 @@ const login = () => {
                 htmlType="submit"
                 className="submit-btn"
               >
-                Login
+                Signup
               </Button>
             </Form.Item>
           </Form>
@@ -205,4 +263,5 @@ const login = () => {
     </Layout>
   );
 };
-export default login;
+
+export default Usersignup;
