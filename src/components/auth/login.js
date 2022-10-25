@@ -20,10 +20,7 @@ const login = () => {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(values),
     };
-    fetch(
-      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/login",
-      requestOptions
-    )
+    fetch("http://127.0.0.1:8000/api/auth/login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.user.name);

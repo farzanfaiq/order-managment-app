@@ -16,6 +16,7 @@ import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 
+import axios from "axios";
 // import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 const layout = {
@@ -41,6 +42,9 @@ const validateMessages = {
 
 /* eslint-enable no-template-curly-in-string */
 const RiderCreate = () => {
+  const [image, setImage] = useState({ preview: "", data: "" });
+  const [status, setStatus] = useState("");
+
   const { id } = useParams();
   const [form] = Form.useForm();
 
@@ -68,18 +72,59 @@ const RiderCreate = () => {
     message.success("This is a success message");
     console.log(values);
 
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("phone_no", values.phone_number);
+    formData.append("area_name", values.area_name);
+    formData.append("photo", values.photo);
+
     const createObj = {
       method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(values),
+      mode: "no-cors",
+      headers: {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": true,
+      },
+      body: formData,
     };
     fetch(
       "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
       createObj
     ).then((res) => {
       console.log(res.json());
+      if (res) setStatus(res.statusText);
     });
   };
+
+  const uploadImage = async (options) => {
+    const { onSuccess, onError, file, onProgress } = options;
+
+    const fmData = new FormData();
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+    };
+    fmData.append("image", file);
+    try {
+      const res = await axios.post(
+        "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
+        fmData,
+        config
+      );
+
+      onSuccess("Ok");
+      console.log("server res: ", res);
+    } catch (err) {
+      console.log("Eroor: ", err);
+      const error = new Error("Some error");
+      onError({ err });
+    }
+  };
+  // const handleFileChange = (e) => {
+  //   const img = {
+  //     preview: URL.createObjectURL(e.target.files[0]),
+  //     data: e.target.files[0],
+  //   }
+  // setImage(img);
 
   const { Title } = Typography;
   const [options, setOptions] = useState([]);
@@ -198,7 +243,10 @@ const RiderCreate = () => {
               listType="picture"
               className="upload-list-inline"
               defaultFileList={[...fileList]}
+              accept="image/*"
               maxCount={1}
+              customRequest={uploadImage}
+              // onChange={handleOnChange}
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>

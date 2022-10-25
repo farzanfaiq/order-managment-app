@@ -32,7 +32,7 @@ const Rider = () => {
   };
   fetch("https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider", getList).then(
     (res) => {
-      console.log(res);
+      console.log(res.json());
     }
   );
 
