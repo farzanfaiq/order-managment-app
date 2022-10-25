@@ -9,15 +9,13 @@ import {
   Upload,
   AutoComplete,
 } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-
-import axios from "axios";
-// import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
+import { Navigate } from "react-router-dom";
 
 const layout = {
   labelCol: {
@@ -28,7 +26,6 @@ const layout = {
   },
 };
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
   types: {
@@ -40,91 +37,80 @@ const validateMessages = {
   },
 };
 
-/* eslint-enable no-template-curly-in-string */
 const RiderCreate = () => {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
 
   const { id } = useParams();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [fileList, setFileList] = useState([]);
 
-  let fileList = [];
-  if (id != null) {
-    form.setFieldsValue({
-      name: "Farjad",
-      phone_number: "+92(388)83-83834",
-      area: "Karachi",
-    });
+  useEffect(() => {
+    if (id != null) {
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-    fileList = [
-      {
-        uid: "-1",
-        name: "xxx.png",
-        status: "done",
-        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        thumbUrl:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-    ];
-  }
+      fetch(`${process.env.REACT_APP_API_URL}rider/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          form.setFieldsValue({
+            name: data.rider.name,
+            phone_number: data.rider.phone,
+            area_name: data.rider.area_name,
+          });
+
+          setFileList([
+            {
+              uid: "-1",
+              name: data.rider.picture,
+              status: "done",
+              url: `${process.env.REACT_APP_IMAGE_URL + data.rider.picture}`,
+            },
+          ]);
+        });
+    }
+  }, []);
 
   const onFinish = (values) => {
-    message.success("This is a success message");
+    let formData = new FormData();
+
     console.log(values);
 
-    let formData = new FormData();
     formData.append("name", values.name);
-    formData.append("phone_no", values.phone_number);
     formData.append("area_name", values.area_name);
-    formData.append("photo", values.photo);
+    formData.append("phone_number", values.phone_number);
 
+    if (typeof values.photo !== "undefined") {
+      formData.append("photo", values.photo.file);
+    }
+
+    let url = `${process.env.REACT_APP_API_URL}rider/store`;
+    if (id != null) {
+      url = `${process.env.REACT_APP_API_URL}rider/update/${id}`;
+    }
     const createObj = {
       method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": true,
-      },
       body: formData,
     };
-    fetch(
-      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
-      createObj
-    ).then((res) => {
-      console.log(res.json());
-      if (res) setStatus(res.statusText);
-    });
+    fetch(url, createObj)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        message.success(data.msg);
+        navigate("/rider");
+        // form.resetFields()
+      })
+      .catch((error) => {
+        console.log(error);
+        message.error(error.msg);
+        form.resetFields();
+      });
   };
-
-  const uploadImage = async (options) => {
-    const { onSuccess, onError, file, onProgress } = options;
-
-    const fmData = new FormData();
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
-    };
-    fmData.append("image", file);
-    try {
-      const res = await axios.post(
-        "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
-        fmData,
-        config
-      );
-
-      onSuccess("Ok");
-      console.log("server res: ", res);
-    } catch (err) {
-      console.log("Eroor: ", err);
-      const error = new Error("Some error");
-      onError({ err });
-    }
-  };
-  // const handleFileChange = (e) => {
-  //   const img = {
-  //     preview: URL.createObjectURL(e.target.files[0]),
-  //     data: e.target.files[0],
-  //   }
-  // setImage(img);
 
   const { Title } = Typography;
   const [options, setOptions] = useState([]);
@@ -239,14 +225,12 @@ const RiderCreate = () => {
             ]}
           >
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture"
               className="upload-list-inline"
-              defaultFileList={[...fileList]}
+              defaultFileList={fileList}
               accept="image/*"
               maxCount={1}
-              customRequest={uploadImage}
-              // onChange={handleOnChange}
+              beforeUpload={() => false}
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>

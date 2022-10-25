@@ -1,71 +1,24 @@
-import {
-  Button,
-  Modal,
-  Table,
-  Input,
-  Row,
-  Typography,
-  Form,
-  InputNumber,
-  message,
-} from "antd";
-import React, { useState } from "react";
+import { Button, Modal, Table, Row, Typography, message } from "antd";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-const Rider = () => {
-  const layout = {
-    labelCol: {
-      span: 5,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-  const getList = {
-    method: "GET",
-    mode: "no-cors",
-    headers: {
-      "Content-type": "application/json",
-      "Access-Control-Allow-Origin": true,
-      "bearer-token": localStorage.getItem("token"),
-    },
-  };
-  fetch("https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider", getList).then(
-    (res) => {
-      console.log(res.json());
-    }
-  );
 
-  const [dataSource, setDataSource] = useState([
-    {
-      key: "1",
-      name: "User 1",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "2",
-      name: "User 2",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "3",
-      name: "User 3",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "4",
-      name: "User 4",
-      phone_number: "021123456789",
-      area: "xyz",
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
+const Rider = () => {
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    fetch(`${process.env.REACT_APP_API_URL}rider`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setDataSource(data.riders);
+      });
+  }, []);
 
   const columns = [
     {
@@ -85,16 +38,25 @@ const Rider = () => {
     },
     {
       title: "Phone Number",
-      dataIndex: "phone_number",
+      dataIndex: "phone",
     },
     {
       title: "Area",
-      dataIndex: "area",
+      dataIndex: "area_name",
     },
     {
       title: "Pic",
       dataIndex: "pic",
-      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />,
+      render: (t, r) =>
+        r.picture != null ? (
+          <img
+            width={30}
+            height={30}
+            src={`${process.env.REACT_APP_IMAGE_URL + r.picture}`}
+          />
+        ) : (
+          ""
+        ),
     },
     {
       title: "Action",
@@ -103,7 +65,7 @@ const Rider = () => {
       render: (_text, record) => {
         return (
           <>
-            <Link to="edit/1">
+            <Link to={`edit/${record.id}`}>
               <EditOutlined />
             </Link>
             <DeleteOutlined
@@ -124,10 +86,27 @@ const Rider = () => {
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setDataSource((pre) => {
-          message.error("Successfully Deleted");
-          return pre.filter((rider) => rider.key !== record.key);
-        });
+        const requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+        fetch(
+          `${process.env.REACT_APP_API_URL}rider/destroy/${record.id}`,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            setDataSource((pre) => {
+              message.success(data.msg);
+              return pre.filter((rider) => rider.id !== record.id);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            message.error(error.msg);
+          });
       },
     });
   };
