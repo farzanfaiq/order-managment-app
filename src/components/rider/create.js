@@ -9,14 +9,13 @@ import {
   Upload,
   AutoComplete,
 } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-
-// import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
+import { Navigate } from 'react-router-dom';
 
 const layout = {
   labelCol: {
@@ -38,45 +37,80 @@ const validateMessages = {
   },
 };
 
+
 const RiderCreate = () => {
   const { id } = useParams();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [fileList, setFileList] = useState([]);
 
-  let fileList = [];
-  if (id != null) {
-    form.setFieldsValue({
-      name: "Farjad",
-      phone_number: "+92(388)83-83834",
-      area: "Karachi",
-    });
+  useEffect(() => {
+    if (id != null) {
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        }
+      };
 
-    fileList = [
-      {
-        uid: "-1",
-        name: "xxx.png",
-        status: "done",
-        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        thumbUrl:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-    ];
-  }
+      fetch(`${process.env.REACT_APP_API_URL}rider/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          form.setFieldsValue({
+            name: data.rider.name,
+            phone_number: data.rider.phone,
+            area_name: data.rider.area_name,
+          });
+
+          setFileList([{
+            uid: '-1',
+            name: data.rider.picture,
+            status: 'done',
+            url: `${process.env.REACT_APP_IMAGE_URL + data.rider.picture}`,
+          }]);
+
+        })
+    }
+  }, []);
 
   const onFinish = (values) => {
-    message.success("This is a success message");
-    console.log(values, values.photo.file);
+    let formData = new FormData();
 
+    console.log(values)
+
+    formData.append("name", values.name);
+    formData.append("area_name", values.area_name);
+    formData.append("phone_number", values.phone_number);
+
+    if (typeof values.photo !== 'undefined') {
+      formData.append("photo", values.photo.file);
+    }
+
+
+    let url = `${process.env.REACT_APP_API_URL}rider/store`;
+    if (id != null) {
+      url = `${process.env.REACT_APP_API_URL}rider/update/${id}`;
+    }
     const createObj = {
       method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(values),
+      body: formData
     };
     fetch(
-      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/rider",
+      url,
       createObj
-    ).then((res) => {
-      console.log(res);
-    });
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        message.success(data.msg);
+        navigate('/rider');
+        // form.resetFields()
+      })
+      .catch((error) => {
+        console.log(error);
+        message.error(error.msg);
+        form.resetFields();
+      });
   };
 
   const { Title } = Typography;
@@ -192,12 +226,12 @@ const RiderCreate = () => {
             ]}
           >
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture"
               className="upload-list-inline"
-              defaultFileList={[...fileList]}
+              defaultFileList={fileList}
               accept="image/*"
               maxCount={1}
+              beforeUpload={() => false}
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>

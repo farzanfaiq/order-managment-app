@@ -18,7 +18,6 @@ const Rider = () => {
     fetch(`${process.env.REACT_APP_API_URL}rider`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.riders);
         setDataSource(data.riders);
       })
   }, []);
@@ -48,7 +47,7 @@ const Rider = () => {
     {
       title: "Pic",
       dataIndex: "pic",
-      render: (t, r) => r.picture != null ? <img width={30} height={30} src={`http://127.0.0.1:8000${r.picture}`} /> : ''
+      render: (t, r) => r.picture != null ? <img width={30} height={30} src={`${process.env.REACT_APP_IMAGE_URL + r.picture}`} /> : ''
     },
     {
       title: "Action",
@@ -81,10 +80,24 @@ const Rider = () => {
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setDataSource((pre) => {
-          message.error('Successfully Deleted');
-          return pre.filter((rider) => rider.key !== record.key);
-        });
+        const requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          }
+        };
+        fetch(`${process.env.REACT_APP_API_URL}rider/destroy/${record.id}`, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            setDataSource((pre) => {
+              message.success(data.msg);
+              return pre.filter((rider) => rider.id !== record.id);
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+            message.error(error.msg);
+          });
       },
     });
   };
