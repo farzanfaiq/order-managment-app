@@ -4,7 +4,7 @@ import { Breadcrumb, Menu, Dropdown, Space } from "antd";
 import { Outlet } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
-import { Navigate } from "react-router-dom";
+import { LogoutUser } from '../api/index';
 
 const BodyLayout = () => {
   const items1 = ["1"].map((key) => ({
@@ -15,30 +15,7 @@ const BodyLayout = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    const requestLogout = {
-      method: "POST",
-      // withCredentials: true,
-      // crossorigin: true,
-      mode: "no-cors",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": true,
-        "bearer-token": localStorage.getItem("token"),
-      },
-    };
-    fetch(
-      "https://50c0-206-42-123-162.in.ngrok.io/api/auth/logout",
-      requestLogout
-    )
-      .then((res) => {
-        localStorage.clear();
-        window.location.reload();
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // <Navigate to="/login" />
+    LogoutUser();
   };
 
   const menu = (

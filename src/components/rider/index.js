@@ -3,21 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import { RidersList, RiderDelete } from '../api/index';
+
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-    fetch(`${process.env.REACT_APP_API_URL}rider`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        setDataSource(data.riders);
-      });
+    RidersList(setDataSource);
   }, []);
 
   const columns = [
@@ -26,9 +18,8 @@ const Rider = () => {
       dataIndex: "id",
       key: "id",
       sorter: (a, b) => a.id - b.id,
-      render: (id, record, index) => {
-        ++index;
-        return index;
+      render: (id, record) => {
+        return id;
       },
       showSorterTooltip: false,
     },
@@ -65,7 +56,7 @@ const Rider = () => {
       render: (_text, record) => {
         return (
           <>
-            <Link to={`edit/${record.id}`}>
+            <Link to={{ pathname: `edit/${record.id}` }} state={record}>
               <EditOutlined />
             </Link>
             <DeleteOutlined
@@ -86,27 +77,7 @@ const Rider = () => {
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        fetch(
-          `${process.env.REACT_APP_API_URL}rider/destroy/${record.id}`,
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            setDataSource((pre) => {
-              message.success(data.msg);
-              return pre.filter((rider) => rider.id !== record.id);
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-            message.error(error.msg);
-          });
+        RiderDelete(record, setDataSource);
       },
     });
   };
@@ -124,7 +95,7 @@ const Rider = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} />
+      <Table columns={columns} dataSource={dataSource} rowKey={(v) => v.id} />
     </div>
   );
 };

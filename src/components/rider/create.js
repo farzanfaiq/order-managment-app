@@ -5,17 +5,16 @@ import {
   Form,
   Input,
   Typography,
-  message,
   Upload,
   AutoComplete,
 } from "antd";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-import { Navigate } from "react-router-dom";
+import { RiderCreateUpdate } from '../api/index';
 
 const layout = {
   labelCol: {
@@ -38,78 +37,24 @@ const validateMessages = {
 };
 
 const RiderCreate = () => {
-  const [image, setImage] = useState({ preview: "", data: "" });
-  const [status, setStatus] = useState("");
-
-  const { id } = useParams();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [fileList, setFileList] = useState([]);
+  const location = useLocation();
+  const id = location.state.id != null ? location.state.id : '';
 
-  useEffect(() => {
-    if (id != null) {
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      fetch(`${process.env.REACT_APP_API_URL}rider/${id}`, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          form.setFieldsValue({
-            name: data.rider.name,
-            phone_number: data.rider.phone,
-            area_name: data.rider.area_name,
-          });
-
-          setFileList([
-            {
-              uid: "-1",
-              name: data.rider.picture,
-              status: "done",
-              url: `${process.env.REACT_APP_IMAGE_URL + data.rider.picture}`,
-            },
-          ]);
-        });
-    }
-  }, []);
+  let fileList = "";
+  if (location.state != null) {
+    fileList = [{
+      uid: '-1',
+      name: `${location.state.picture}`,
+      status: 'done',
+      url: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
+      thumbUrl: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
+    }];
+  }
 
   const onFinish = (values) => {
-    let formData = new FormData();
-
-    console.log(values);
-
-    formData.append("name", values.name);
-    formData.append("area_name", values.area_name);
-    formData.append("phone_number", values.phone_number);
-
-    if (typeof values.photo !== "undefined") {
-      formData.append("photo", values.photo.file);
-    }
-
-    let url = `${process.env.REACT_APP_API_URL}rider/store`;
-    if (id != null) {
-      url = `${process.env.REACT_APP_API_URL}rider/update/${id}`;
-    }
-    const createObj = {
-      method: "POST",
-      body: formData,
-    };
-    fetch(url, createObj)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        message.success(data.msg);
-        navigate("/rider");
-        // form.resetFields()
-      })
-      .catch((error) => {
-        console.log(error);
-        message.error(error.msg);
-        form.resetFields();
-      });
+    RiderCreateUpdate(id, form, navigate, values);
   };
 
   const { Title } = Typography;
@@ -158,6 +103,7 @@ const RiderCreate = () => {
           onFinish={onFinish}
           validateMessages={validateMessages}
           autoComplete="off"
+          initialValues={location.state}
         >
           <Form.Item
             name="name"
@@ -172,7 +118,7 @@ const RiderCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name="phone_number"
+            name="phone"
             label="Phone"
             mask="#########"
             rules={[
