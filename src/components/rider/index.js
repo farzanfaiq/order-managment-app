@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import { RidersList, RiderDelete } from '../api/index';
+import { RidersList, RiderDelete } from '../../api/index';
 
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);

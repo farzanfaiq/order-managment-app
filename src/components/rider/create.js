@@ -14,7 +14,7 @@ import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-import { RiderCreateUpdate } from '../api/index';
+import { RiderCreateUpdate } from '../../api/index';
 
 const layout = {
   labelCol: {
@@ -40,7 +40,7 @@ const RiderCreate = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.state.id != null ? location.state.id : '';
+  const id = location.state != null ? location.state.id : null;
 
   let fileList = "";
   if (location.state != null) {

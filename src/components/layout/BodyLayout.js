@@ -4,7 +4,7 @@ import { Breadcrumb, Menu, Dropdown, Space } from "antd";
 import { Outlet } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
-import { LogoutUser } from '../api/index';
+import { LogoutUser } from '../../api/index';
 
 const BodyLayout = () => {
   const items1 = ["1"].map((key) => ({

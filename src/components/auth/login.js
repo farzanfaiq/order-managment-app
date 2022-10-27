@@ -10,7 +10,7 @@ import {
 } from "antd";
 import React from "react";
 import "./login.scss";
-import { LoginUser } from '../api/index';
+import { LoginUser } from '../../api/index';
 
 const Login = () => {
   const onFinish = (values) => {
