@@ -5,11 +5,13 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { RidersList, RiderDelete } from "../../api/index";
 
+
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    RidersList(setDataSource);
+    RidersList(setDataSource, setLoading);
   }, []);
 
   const columns = [
@@ -95,7 +97,7 @@ const Rider = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} />
+      <Table columns={columns} dataSource={dataSource} rowKey="id" loading={loading} />
     </div>
   );
 };

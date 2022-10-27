@@ -1,6 +1,6 @@
 import React from "react";
 import { Header, Content } from "antd/lib/layout/layout";
-import { Breadcrumb, Menu, Dropdown, Space } from "antd";
+import { Menu, Dropdown, Space } from "antd";
 import { Outlet } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
@@ -75,20 +75,7 @@ const BodyLayout = () => {
         </Dropdown>
       </Header>
 
-      <Content
-        style={{
-          margin: "0 16px",
-        }}
-      >
-        {/* <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb> */}
-
+      <Content style={{ margin: "0 16px" }}>
         <Outlet />
       </Content>
     </React.Fragment>

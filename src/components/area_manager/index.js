@@ -2,12 +2,8 @@ import {
   Button,
   Modal,
   Table,
-  Input,
   Row,
   Typography,
-  Form,
-  InputNumber,
-  message,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -15,59 +11,11 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ManagerList, ManagerDelete } from "../../api/index";
 
 const AreaManager = () => {
-  const layout = {
-    labelCol: {
-      span: 5,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
+  const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const onFinish = (values) => {
-    message.success("This is a success message");
-  };
-
-  const [dataSource, setDataSource] = useState([
-    // {
-    //   key: "1",
-    //   name: "User 1",
-    //   phone_number: "021123456789",
-    //   email_address: "test@test.com",
-    //   area: "xyz",
-    //   zip_code: 12345,
-    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-    // {
-    //   key: "2",
-    //   name: "User 2",
-    //   phone_number: "021123456789",
-    //   email_address: "test@test.com",
-    //   area: "xyz",
-    //   zip_code: 12345,
-    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-    // {
-    //   key: "3",
-    //   name: "User 3",
-    //   phone_number: "021123456789",
-    //   email_address: "test@test.com",
-    //   area: "xyz",
-    //   zip_code: 12345,
-    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-    // {
-    //   key: "4",
-    //   name: "User 4",
-    //   phone_number: "021123456789",
-    //   email_address: "test@test.com",
-    //   area: "xyz",
-    //   zip_code: 12345,
-    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-  ]);
   useEffect(() => {
-    ManagerList(setDataSource);
+    ManagerList(setDataSource, setLoading);
   }, []);
 
   const columns = [
@@ -162,7 +110,7 @@ const AreaManager = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} />
+      <Table columns={columns} dataSource={dataSource} rowKey="id" loading={loading} />
     </div>
   );
 };

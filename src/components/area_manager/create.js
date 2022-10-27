@@ -216,6 +216,7 @@ const AreaManagerCreate = () => {
               defaultFileList={[...fileList]}
               maxCount={1}
               beforeUpload={() => false}
+              accept="image/*"
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>
@@ -232,7 +233,7 @@ const AreaManagerCreate = () => {
           </Form.Item>
         </Form>
       </div>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 export default AreaManagerCreate;

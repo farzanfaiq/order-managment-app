@@ -72,11 +72,12 @@ export const LogoutUser = () => {
     });
 };
 
-export const RidersList = (setDataSource) => {
+export const RidersList = (setDataSource, setLoading) => {
   fetch(rider_list, requestGet)
     .then((response) => response.json())
     .then((data) => {
       setDataSource(data.riders);
+      setLoading(false);
     });
 };
 
@@ -131,11 +132,12 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
     });
 };
 
-export const ManagerList = (setDataSource) => {
+export const ManagerList = (setDataSource, setLoading) => {
   fetch(area_manager_list, requestGet)
     .then((response) => response.json())
     .then((data) => {
       setDataSource(data.area_managers);
+      setLoading(false);
     });
 };
 

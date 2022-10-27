@@ -7,13 +7,15 @@ import Rider from "../components/rider/index";
 import AreaManagerCreate from "../components/area_manager/create";
 import RiderCreate from "../components/rider/create";
 import Dashboard from "../components/dashboard";
+import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
 
 const routes = [
   // Index
+  { path: "/dashboard", component: <Dashboard />, label: "Dashboard", shownav: true, icon: <PieChartOutlined /> },
+  { path: "/area-manager", component: <AreaManger />, label: "Area Manager", shownav: true, icon: <UserOutlined /> },
+  { path: "/rider", component: <Rider />, label: "Rider", shownav: true, icon: <UserOutlined /> },
   { path: "/", component: <Dashboard /> },
-  { path: "/dashboard", component: <Dashboard /> },
-  { path: "/area-manager", component: <AreaManger /> },
-  { path: "/rider", component: <Rider /> },
+
 
   // Create
   { path: "/area-manager/create", component: <AreaManagerCreate /> },

@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sider from "antd/lib/layout/Sider";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
-import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router-dom";
+import routes from "../../routes";
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-const items = [
-  getItem(<Link to="/dashboard">Dashboard</Link>, "1", <PieChartOutlined />),
-  getItem(<Link to="/area-manager">Area Manager</Link>, "2", <UserOutlined />),
-  getItem(<Link to="/rider">Rider</Link>, "3", <UserOutlined />),
-];
 const SidebarLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation()
+  const [selectedKey, setSelectedKey] = useState("");
+  const items = useMemo(() => {
+    let arr = [];
+    routes.forEach((route, key) => {
+      if (route.shownav) {
+        arr.push({
+          key: key,
+          label: <Link to={route.path}>{route.label}</Link>,
+          icon: route.icon,
+          path: route.path
+        })
+      }
+    })
+    return arr;
+  }, [])
+
+  useEffect(() => {
+    for (var i in items) {
+      if (location.pathname.startsWith(items[i].path)) {
+        setSelectedKey(items[i].key);
+      }
+    }
+  }, [location])
+  console.log("items", items);
   return (
     <Sider
       collapsible
@@ -28,7 +40,7 @@ const SidebarLayout = () => {
       <div className="logo" />
       <Menu
         theme="dark"
-        defaultSelectedKeys={["1"]}
+        selectedKeys={[(selectedKey).toString()]}
         mode="inline"
         items={items}
       />
