@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import { RidersList, RiderDelete } from '../../api/index';
+import { RidersList, RiderDelete } from "../../api/index";
 
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -29,7 +29,7 @@ const Rider = () => {
     },
     {
       title: "Phone Number",
-      dataIndex: "phone",
+      dataIndex: "phone_number",
     },
     {
       title: "Area",
@@ -37,7 +37,7 @@ const Rider = () => {
     },
     {
       title: "Pic",
-      dataIndex: "pic",
+      dataIndex: "picture",
       render: (t, r) =>
         r.picture != null ? (
           <img
@@ -95,7 +95,7 @@ const Rider = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} rowKey={(v) => v.id} />
+      <Table columns={columns} dataSource={dataSource} />
     </div>
   );
 };

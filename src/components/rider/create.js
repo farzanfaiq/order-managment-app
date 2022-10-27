@@ -118,7 +118,7 @@ const RiderCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name="phone"
+            name="phone_number"
             label="Phone"
             mask="#########"
             rules={[
@@ -160,7 +160,7 @@ const RiderCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name="photo"
+            name="picture"
             label="Picture"
             rules={[
               {

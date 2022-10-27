@@ -10,9 +10,11 @@ import {
   AutoComplete,
 } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import { IMaskInput } from "react-imask";
+
+import { ManagerCreateUpdate } from "../../api/index";
 
 import { useParams } from "react-router-dom";
 
@@ -38,34 +40,26 @@ const validateMessages = {
 
 /* eslint-enable no-template-curly-in-string */
 const AreaManagerCreate = () => {
-  const { id } = useParams();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.state != null ? location.state.id : null;
 
-  let fileList = [];
-  if (id != null) {
-    form.setFieldsValue({
-      name: "Farjad",
-      email_address: "farjad@ml.com",
-      phone_number: "+92(388)83-83834",
-      area: "Karachi",
-      zip_code: 7556,
-    });
-
+  let fileList = "";
+  if (location.state != null) {
     fileList = [
       {
         uid: "-1",
-        name: "xxx.png",
+        name: `${location.state.picture}`,
         status: "done",
-        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        thumbUrl:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+        url: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
+        thumbUrl: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
       },
     ];
   }
 
   const onFinish = (values) => {
-    message.success("This is a success message");
-    console.log(values);
+    ManagerCreateUpdate(id, form, navigate, values);
   };
 
   const { Title } = Typography;
@@ -90,7 +84,9 @@ const AreaManagerCreate = () => {
     <React.Fragment>
       <Row className="my-2 align-items-center">
         <Col span={21}>
-          <Title level={3} className="my-2">{id != null ? "Edit" : "Add"} Area Manager</Title>
+          <Title level={3} className="my-2">
+            {id != null ? "Edit" : "Add"} Area Manager{" "}
+          </Title>
         </Col>
 
         <Col span={3}>
@@ -111,8 +107,10 @@ const AreaManagerCreate = () => {
           className="oma-form"
           name="nest-messages"
           form={form}
+          autoComplete="off"
           onFinish={onFinish}
           validateMessages={validateMessages}
+          initialValues={location.state}
         >
           <Form.Item
             name="name"
@@ -126,7 +124,7 @@ const AreaManagerCreate = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="email_address"
+            name="email"
             label="Email"
             rules={[
               {
@@ -156,7 +154,6 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-
             <IMaskInput
               mask="+{92}(300)00-00000"
               style={{ width: "100%" }}
@@ -167,7 +164,7 @@ const AreaManagerCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name="area"
+            name="area_name"
             label="Area Name"
             rules={[
               {
@@ -202,7 +199,7 @@ const AreaManagerCreate = () => {
           </Form.Item>
 
           <Form.Item
-            name="pic"
+            name="picture"
             label="Picture"
             rules={[
               {
@@ -213,11 +210,12 @@ const AreaManagerCreate = () => {
             ]}
           >
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture"
               className="upload-list-inline"
               defaultFileList={[...fileList]}
               maxCount={1}
+              beforeUpload={() => false}
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>

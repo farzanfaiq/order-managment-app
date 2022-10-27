@@ -9,9 +9,10 @@ import {
   InputNumber,
   message,
 } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { ManagerList, ManagerDelete } from "../../api/index";
 
 const AreaManager = () => {
   const layout = {
@@ -28,43 +29,46 @@ const AreaManager = () => {
   };
 
   const [dataSource, setDataSource] = useState([
-    {
-      key: "1",
-      name: "User 1",
-      phone_number: "021123456789",
-      email_address: "test@test.com",
-      area: "xyz",
-      zip_code: 12345,
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "2",
-      name: "User 2",
-      phone_number: "021123456789",
-      email_address: "test@test.com",
-      area: "xyz",
-      zip_code: 12345,
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "3",
-      name: "User 3",
-      phone_number: "021123456789",
-      email_address: "test@test.com",
-      area: "xyz",
-      zip_code: 12345,
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      key: "4",
-      name: "User 4",
-      phone_number: "021123456789",
-      email_address: "test@test.com",
-      area: "xyz",
-      zip_code: 12345,
-      pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
+    // {
+    //   key: "1",
+    //   name: "User 1",
+    //   phone_number: "021123456789",
+    //   email_address: "test@test.com",
+    //   area: "xyz",
+    //   zip_code: 12345,
+    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   key: "2",
+    //   name: "User 2",
+    //   phone_number: "021123456789",
+    //   email_address: "test@test.com",
+    //   area: "xyz",
+    //   zip_code: 12345,
+    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   key: "3",
+    //   name: "User 3",
+    //   phone_number: "021123456789",
+    //   email_address: "test@test.com",
+    //   area: "xyz",
+    //   zip_code: 12345,
+    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   key: "4",
+    //   name: "User 4",
+    //   phone_number: "021123456789",
+    //   email_address: "test@test.com",
+    //   area: "xyz",
+    //   zip_code: 12345,
+    //   pic: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
   ]);
+  useEffect(() => {
+    ManagerList(setDataSource);
+  }, []);
 
   const columns = [
     {
@@ -88,11 +92,11 @@ const AreaManager = () => {
     },
     {
       title: "Email Address",
-      dataIndex: "email_address",
+      dataIndex: "email",
     },
     {
       title: "Area",
-      dataIndex: "area",
+      dataIndex: "area_name",
     },
     {
       title: "ZIP Code",
@@ -100,8 +104,17 @@ const AreaManager = () => {
     },
     {
       title: "Pic",
-      dataIndex: "pic",
-      render: (t, r) => <img width={50} height={50} src={`${r.pic}`} />,
+      dataIndex: "picture",
+      render: (t, r) =>
+        r.picture != null ? (
+          <img
+            width={30}
+            height={30}
+            src={`${process.env.REACT_APP_IMAGE_URL + r.picture}`}
+          />
+        ) : (
+          ""
+        ),
     },
     {
       title: "Action",
@@ -110,7 +123,7 @@ const AreaManager = () => {
       render: (_text, record) => {
         return (
           <>
-            <Link to="edit/1">
+            <Link to={{ pathname: `edit/${record.id}` }} state={record}>
               <EditOutlined />
             </Link>
             <DeleteOutlined
@@ -131,10 +144,7 @@ const AreaManager = () => {
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setDataSource((pre) => {
-          message.error("Successfully Deleted");
-          return pre.filter((manager) => manager.key !== record.key);
-        });
+        ManagerDelete(record, setDataSource);
       },
     });
   };
