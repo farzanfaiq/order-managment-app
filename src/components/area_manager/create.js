@@ -46,7 +46,7 @@ const AreaManagerCreate = () => {
   const id = location.state != null ? location.state.id : null;
 
   let fileList = "";
-  if (location.state != null) {
+  if (location?.state?.picture) {
     fileList = [
       {
         uid: "-1",
@@ -149,18 +149,34 @@ const AreaManagerCreate = () => {
                 message: "Please input your phone number!",
               },
               {
-                min: 16,
+                max: 16,
                 message: "Must be a valid phone number",
               },
             ]}
           >
-            <IMaskInput
-              mask="+{92}(300)00-00000"
-              style={{ width: "100%" }}
-              onAccept={(value, mask) => console.log(value, mask)}
-              placeholder="Phone eg +92(331)27-40314"
-              className="ant-input ant-input-status-success"
-            />
+            <div className="position-relative">
+              <span
+                style={{
+                  position: "absolute",
+                  zIndex: "3",
+                  padding: "7px",
+                  background: "#eee",
+                  top: "1px",
+                  left: "1px",
+                }}
+                className="prefix_num"
+              >
+                +92
+              </span>
+              <IMaskInput
+                mask="(300)00-00000"
+                style={{ width: "100%", paddingLeft: "45px" }}
+                value={location?.state?.phone_number || null}
+                onAccept={(value, mask) => console.log(value, mask)}
+                placeholder="Phone eg +92(331)27-40314"
+                className="ant-input ant-input-status-success"
+              />
+            </div>
           </Form.Item>
 
           <Form.Item
@@ -233,7 +249,7 @@ const AreaManagerCreate = () => {
           </Form.Item>
         </Form>
       </div>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 export default AreaManagerCreate;

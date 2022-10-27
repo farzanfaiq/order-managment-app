@@ -14,7 +14,7 @@ import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-import { RiderCreateUpdate } from '../../api/index';
+import { RiderCreateUpdate } from "../../api/index";
 
 const layout = {
   labelCol: {
@@ -43,14 +43,16 @@ const RiderCreate = () => {
   const id = location.state != null ? location.state.id : null;
 
   let fileList = "";
-  if (location.state != null) {
-    fileList = [{
-      uid: '-1',
-      name: `${location.state.picture}`,
-      status: 'done',
-      url: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
-      thumbUrl: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
-    }];
+  if (location?.state?.picture) {
+    fileList = [
+      {
+        uid: "-1",
+        name: `${location.state.picture}`,
+        status: "done",
+        url: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
+        thumbUrl: `${process.env.REACT_APP_IMAGE_URL}/${location.state.picture}`,
+      },
+    ];
   }
 
   const onFinish = (values) => {
@@ -127,18 +129,34 @@ const RiderCreate = () => {
                 message: "Please input your phone number!",
               },
               {
-                min: 16,
+                max: 16,
                 message: "Must be a valid phone number",
               },
             ]}
           >
-            <IMaskInput
-              mask="+{92}(300)00-00000"
-              style={{ width: "100%" }}
-              onAccept={(value, mask) => console.log(value, mask)}
-              placeholder="Phone eg +92(331)27-40314"
-              className="ant-input ant-input-status-success"
-            />
+            <div>
+              <span
+                style={{
+                  position: "absolute",
+                  zIndex: "3",
+                  padding: "7px",
+                  background: "#eee",
+                  top: "1px",
+                  left: "1px",
+                }}
+                className="prefix_num"
+              >
+                +92
+              </span>
+              <IMaskInput
+                mask="(300)00-00000"
+                style={{ width: "100%", paddingLeft: "45px" }}
+                onAccept={(value, mask) => console.log(value, mask)}
+                value={location?.state?.phone_number || null}
+                placeholder="Phone eg +92(331)27-40314"
+                className="ant-input ant-input-status-success"
+              />
+            </div>
           </Form.Item>
 
           <Form.Item
