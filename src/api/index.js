@@ -30,7 +30,7 @@ export const LoginUser = (values) => {
     })
     .catch((error) => {
       console.log(error);
-      message.error(error.msg);
+      message.error(error.response.data.msg);
     });
 };
 
@@ -40,7 +40,7 @@ export const LogoutUser = () => {
   //   .then((response) => {
   localStorage.clear();
   //   message.success(response.data.msg);
-  //   window.location.reload();
+  window.location.reload();
   // })
   // .catch((error) => {
   //   console.log(error);
