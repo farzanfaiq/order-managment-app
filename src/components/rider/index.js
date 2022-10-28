@@ -5,7 +5,6 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { RidersList, RiderDelete } from "../../api/index";
 
-
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +31,9 @@ const Rider = () => {
     {
       title: "Phone Number",
       dataIndex: "phone_number",
+      render: (t, r) => {
+        return `+92 ${r.phone_number}`;
+      },
     },
     {
       title: "Area",
@@ -97,7 +99,12 @@ const Rider = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} rowKey="id" loading={loading} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        rowKey="id"
+        loading={loading}
+      />
     </div>
   );
 };
