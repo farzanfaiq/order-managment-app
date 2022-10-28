@@ -18,9 +18,8 @@ const AreaManager = () => {
       dataIndex: "id",
       key: "id",
       sorter: (a, b) => a.id - b.id,
-      render: (id, record, index) => {
-        ++index;
-        return index;
+      render: (id, record) => {
+        return id;
       },
       showSorterTooltip: false,
     },
