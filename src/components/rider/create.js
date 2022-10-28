@@ -40,7 +40,7 @@ const RiderCreate = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.state != null ? location.state.id : null;
+  const id = location.state != null ? location.state.id : "";
 
   let fileList = "";
   if (location?.state?.picture) {
@@ -66,7 +66,7 @@ const RiderCreate = () => {
       <Row className="my-2 align-items-center">
         <Col span={21}>
           <Title level={3} className="my-2">
-            {id != null ? "Edit" : "Add"} Rider{" "}
+            {id != "" ? "Edit" : "Add"} Rider{" "}
           </Title>
         </Col>
 
@@ -114,7 +114,7 @@ const RiderCreate = () => {
                 message: "Please input your phone number!",
               },
               {
-                max: 16,
+                min: 10,
                 message: "Must be a valid phone number",
               },
             ]}
@@ -186,7 +186,7 @@ const RiderCreate = () => {
             }}
           >
             <Button type="pink" htmlType="submit">
-              {id != null ? "Update" : "Create"}
+              {id != "" ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </Form>

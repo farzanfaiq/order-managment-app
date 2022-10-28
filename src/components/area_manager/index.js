@@ -1,10 +1,4 @@
-import {
-  Button,
-  Modal,
-  Table,
-  Row,
-  Typography,
-} from "antd";
+import { Button, Modal, Table, Row, Typography } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -37,6 +31,9 @@ const AreaManager = () => {
     {
       title: "Phone Number",
       dataIndex: "phone_number",
+      render: (t, r) => {
+        return `+92 ${r.phone_number}`;
+      },
     },
     {
       title: "Email Address",
@@ -110,7 +107,12 @@ const AreaManager = () => {
         </Button>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} rowKey="id" loading={loading} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        rowKey="id"
+        loading={loading}
+      />
     </div>
   );
 };
