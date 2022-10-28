@@ -63,22 +63,6 @@ const AreaManagerCreate = () => {
   };
 
   const { Title } = Typography;
-  const [options, setOptions] = useState([]);
-  const mockVal = (str, repeat = 1) => ({
-    value: str.repeat(repeat),
-  });
-
-  const onSearch = (searchText) => {
-    setOptions(
-      !searchText
-        ? []
-        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
-    );
-  };
-
-  const onSelect = (data) => {
-    console.log("onSelect", data);
-  };
 
   return (
     <React.Fragment>
@@ -189,12 +173,7 @@ const AreaManagerCreate = () => {
               },
             ]}
           >
-            <AutoComplete
-              options={options}
-              onSelect={onSelect}
-              onSearch={onSearch}
-              size="large"
-            />
+            <Input />
           </Form.Item>
           <Form.Item
             name="zip_code"
