@@ -7,6 +7,7 @@ import {
   Typography,
   Upload,
   AutoComplete,
+  Spin,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -41,6 +42,7 @@ const RiderCreate = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.state != null ? location.state.id : "";
+  const [loading, setLoading] = useState(false);
 
   let fileList = "";
   if (location?.state?.picture) {
@@ -57,6 +59,7 @@ const RiderCreate = () => {
 
   const onFinish = (values) => {
     RiderCreateUpdate(id, form, navigate, values);
+    setLoading(true);
   };
 
   const { Title } = Typography;
@@ -92,103 +95,105 @@ const RiderCreate = () => {
           autoComplete="off"
           initialValues={location.state}
         >
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="phone_number"
-            label="Phone"
-            mask="#########"
-            rules={[
-              {
-                required: true,
-                message: "Please input your phone number!",
-              },
-              {
-                min: 10,
-                message: "Must be a valid phone number",
-              },
-            ]}
-          >
-            <div>
-              <span
-                style={{
-                  position: "absolute",
-                  zIndex: "3",
-                  padding: "7px",
-                  background: "#eee",
-                  top: "1px",
-                  left: "1px",
-                }}
-                className="prefix_num"
-              >
-                +92
-              </span>
-              <IMaskInput
-                mask="(300)00-00000"
-                style={{ width: "100%", paddingLeft: "45px" }}
-                onAccept={(value, mask) => console.log(value, mask)}
-                value={location?.state?.phone_number || null}
-                placeholder="Phone eg +92(331)27-40314"
-                className="ant-input ant-input-status-success"
-              />
-            </div>
-          </Form.Item>
-
-          <Form.Item
-            name="area_name"
-            label="Area Name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your area!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="picture"
-            label="Picture"
-            rules={[
-              {
-                type: "file",
-                required: true,
-                message: "Please upload your pic!",
-              },
-            ]}
-          >
-            <Upload
-              listType="picture"
-              className="upload-list-inline"
-              defaultFileList={fileList}
-              accept="image/*"
-              maxCount={1}
-              beforeUpload={() => false}
+          <Spin spinning={loading}>
+            <Form.Item
+              name="name"
+              label="Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              ...layout.wrapperCol,
-              offset: 3,
-            }}
-          >
-            <Button type="pink" htmlType="submit">
-              {id != "" ? "Update" : "Create"}
-            </Button>
-          </Form.Item>
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="phone_number"
+              label="Phone"
+              mask="#########"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your phone number!",
+                },
+                {
+                  min: 10,
+                  message: "Must be a valid phone number",
+                },
+              ]}
+            >
+              <div>
+                <span
+                  style={{
+                    position: "absolute",
+                    zIndex: "3",
+                    padding: "7px",
+                    background: "#eee",
+                    top: "1px",
+                    left: "1px",
+                  }}
+                  className="prefix_num"
+                >
+                  +92
+                </span>
+                <IMaskInput
+                  mask="(300)00-00000"
+                  style={{ width: "100%", paddingLeft: "45px" }}
+                  onAccept={(value, mask) => console.log(value, mask)}
+                  value={location?.state?.phone_number || null}
+                  placeholder="Phone eg +92(331)27-40314"
+                  className="ant-input ant-input-status-success"
+                />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              name="area_name"
+              label="Area Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your area!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="picture"
+              label="Picture"
+              rules={[
+                {
+                  type: "file",
+                  required: true,
+                  message: "Please upload your pic!",
+                },
+              ]}
+            >
+              <Upload
+                listType="picture"
+                className="upload-list-inline"
+                defaultFileList={fileList}
+                accept="image/*"
+                maxCount={1}
+                beforeUpload={() => false}
+              >
+                <Button icon={<UploadOutlined />}>Upload</Button>
+              </Upload>
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                ...layout.wrapperCol,
+                offset: 3,
+              }}
+            >
+              <Button type="pink" htmlType="submit">
+                {id != "" ? "Update" : "Create"}
+              </Button>
+            </Form.Item>
+          </Spin>
         </Form>
       </div>
     </React.Fragment>
