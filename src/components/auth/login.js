@@ -6,17 +6,27 @@ import {
   Checkbox,
   Form,
   Input,
-  Layout
+  Layout,
 } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import "./login.scss";
-import { LoginUser } from '../../api/index';
+import { LoginAdmin } from "../../api/index";
+import { LoginContext, LoginDispatchContext } from "../../loginContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const onFinish = (values) => {
-    LoginUser(values);
-  };
+  const setUserDetails = useContext(LoginDispatchContext);
+  const authUser = useContext(LoginContext);
 
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  if (token) {
+    navigate("/dashboard");
+  }
+
+  const onFinish = (values) => {
+    LoginAdmin(values, setUserDetails);
+  };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

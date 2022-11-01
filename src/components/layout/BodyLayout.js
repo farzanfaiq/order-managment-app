@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Header, Content } from "antd/lib/layout/layout";
 import { Menu, Dropdown, Space } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.scss";
-import { LogoutUser } from '../../api/index';
+import { LogoutUser } from "../../api/index";
+import { LoginContext, LoginDispatchContext } from "../../loginContext";
 
 const BodyLayout = () => {
+  const setUserDetails = useContext(LoginDispatchContext);
+  const authUser = useContext(LoginContext);
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+  }
   const items1 = ["1"].map((key) => ({
     key,
     label: localStorage.getItem("loginName"),
     icon: <UserOutlined />,
   }));
-
   const handleLogout = (e) => {
     e.preventDefault();
-    LogoutUser();
+    LogoutUser(setUserDetails);
   };
 
   const menu = (

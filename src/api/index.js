@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, message } from "antd";
 import { json } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
 
 // const config = {
 //   headers: {
@@ -13,11 +11,12 @@ import axios from "axios";
 // };
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] =
+  "Bearer" + localStorage.getItem("token");
 
-export const LoginUser = (values) => {
+export const LoginAdmin = (values, setAuthState) => {
   axios
-    .post('/login', values)
+    .post("/login", values)
     .then((response) => {
       message.success(response.data.msg);
       const token = response.data.access_token;
@@ -26,7 +25,8 @@ export const LoginUser = (values) => {
       const name = response.data.user.name;
       localStorage.setItem("loginName", name);
       localStorage.setItem("authorize", true);
-      window.location.reload();
+      setAuthState({ username: "", isLoggedIn: true });
+      // window.location.reload();
     })
     .catch((error) => {
       console.log(error);
@@ -34,13 +34,14 @@ export const LoginUser = (values) => {
     });
 };
 
-export const LogoutUser = () => {
+export const LogoutUser = (setAuthState) => {
   // axios
   //   .post('/logout')
   //   .then((response) => {
   localStorage.clear();
+  setAuthState({ username: "", isLoggedIn: false });
   //   message.success(response.data.msg);
-  window.location.reload();
+  // window.location.reload();
   // })
   // .catch((error) => {
   //   console.log(error);
@@ -50,7 +51,7 @@ export const LogoutUser = () => {
 
 export const RidersList = (setDataSource, setLoading) => {
   axios
-    .get('/rider')
+    .get("/rider")
     .then((response) => {
       setDataSource(response.data.riders);
       setLoading(false);
@@ -102,7 +103,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
 
 export const ManagerList = (setDataSource, setLoading) => {
   axios
-    .get('/area-manager')
+    .get("/area-manager")
     .then((response) => {
       setDataSource(response.data.area_managers);
       setLoading(false);
@@ -111,7 +112,6 @@ export const ManagerList = (setDataSource, setLoading) => {
       console.log(error);
       message.error(error);
     });
-
 };
 
 export const ManagerDelete = (record, setDataSource) => {
@@ -147,6 +147,45 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
       console.log(response);
       message.success(response.data.msg);
       navigate("/area-manager");
+      form.resetFields();
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error);
+    });
+};
+
+// User Login Mehtod
+export const UserLogin = (values, navigate) => {
+  axios
+    .post("/login", values)
+    .then((response) => {
+      message.success(response.data.msg);
+      console.log(response);
+      navigate("/user/dashboard");
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error.response.data.msg);
+    });
+};
+
+// User Signup Method
+export const SignupUser = (form, values, navigate) => {
+  let formData = new FormData();
+  formData.append("name", values.name);
+  formData.append("email", values.email);
+  formData.append("password", values.password);
+  formData.append("c_password", values.c_password);
+  formData.append("phone_number", values.phone_number);
+  formData.append("gender", values.gender);
+
+  axios
+    .post(`/register`, formData)
+    .then((response) => {
+      console.log(response);
+      message.success(response.data.msg);
+      navigate("/user/dashboard");
       form.resetFields();
     })
     .catch((error) => {

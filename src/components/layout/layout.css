@@ -1,0 +1,25 @@
+a.menu-dropdown {
+  background: #d91d6d;
+}
+
+ul.dropdown-menu {
+  background: #fff;
+  padding: 0;
+}
+
+ul.dropdown-menu li {
+  padding: 10px 10px 10px 20px;
+}
+
+ul.dropdown-menu li:hover {
+  background: #d91d6d;
+}
+
+ul.dropdown-menu a.dropdown-item {
+  color: #000;
+}
+
+ul.dropdown-menu a.dropdown-item:hover {
+  color: #fff;
+}
+/*# sourceMappingURL=layout.css.map */

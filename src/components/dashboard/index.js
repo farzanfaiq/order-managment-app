@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Typography } from "antd";
+import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../../loginContext";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const authUser = useContext(LoginContext);
+  console.log("auth user.........", authUser);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("i am here.....");
+      navigate("/login");
+    }
+  }, []);
+
   const { Title } = Typography;
   return (
     <div>

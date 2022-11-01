@@ -9,10 +9,14 @@ import {
   Input,
   Layout,
 } from "antd";
+import { UserLogin } from "../../../api/index";
+import { useNavigate } from "react-router-dom";
 
 const Userlogin = () => {
+  const navigate = useNavigate();
   const onFinish = (values) => {
     console.log(values);
+    UserLogin(values, navigate);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

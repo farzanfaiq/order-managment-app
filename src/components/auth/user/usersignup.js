@@ -12,11 +12,16 @@ import {
 } from "antd";
 import { IMaskInput } from "react-imask";
 import "./user.scss";
+import { SignupUser } from "../../../api/index";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const Usersignup = () => {
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log(values);
+    SignupUser(form, values, navigate);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -150,13 +155,10 @@ const Usersignup = () => {
             >
               <IMaskInput
                 mask="+{92}(300)00-00000"
-                style={{ width: "100%" }}
+                style={{ width: "100%", borderRadius: "38px" }}
                 onAccept={(value, mask) => console.log(value, mask)}
                 placeholder="Phone eg +92(331)27-40314"
                 className="ant-input ant-input-status-success"
-                style={{
-                  borderRadius: "38px",
-                }}
               />
             </Form.Item>
             <Form.Item
@@ -207,7 +209,7 @@ const Usersignup = () => {
               />
             </Form.Item>
             <Form.Item
-              name="confirm"
+              name="c_password"
               label="Confirm Password"
               dependencies={["password"]}
               hasFeedback
