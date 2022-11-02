@@ -1,22 +1,18 @@
 import React, { useContext } from "react";
 import { Form, message } from "antd";
-import { json } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// const config = {
-//   headers: {
-//     Authorization: 'Bearer' + localStorage.getItem("token")
-//   }
-// };
+
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common["Authorization"] =
-  "Bearer" + localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
+axios.defaults.headers.common["mode"] = "no-cors";
 
+console.log(process.env.REACT_APP_API_URL);
 export const LoginAdmin = (values, setAuthState) => {
   axios
-    .post("/login", values)
+    .post("/auth/login", values)
     .then((response) => {
       message.success(response.data.msg);
       const token = response.data.access_token;
@@ -26,7 +22,6 @@ export const LoginAdmin = (values, setAuthState) => {
       localStorage.setItem("loginName", name);
       localStorage.setItem("authorize", true);
       setAuthState({ username: "", isLoggedIn: true });
-      // window.location.reload();
     })
     .catch((error) => {
       console.log(error);
@@ -158,7 +153,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
 // User Login Mehtod
 export const UserLogin = (values, navigate) => {
   axios
-    .post("/login", values)
+    .post("/auth/login", values)
     .then((response) => {
       message.success(response.data.msg);
       console.log(response);
@@ -179,9 +174,10 @@ export const SignupUser = (form, values, navigate) => {
   formData.append("c_password", values.c_password);
   formData.append("phone_number", values.phone_number);
   formData.append("gender", values.gender);
+  formData.append("role", 'customer');
 
   axios
-    .post(`/register`, formData)
+    .post(`/auth/register`, formData)
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
