@@ -14,7 +14,7 @@ const BodyLayout = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   if (!token) {
-    navigate("/login");
+    navigate("/admin/login");
   }
   const items1 = ["1"].map((key) => ({
     key,

@@ -87,7 +87,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
-      navigate("/rider");
+      navigate("/admin/rider");
       form.resetFields();
     })
     .catch((error) => {
@@ -141,7 +141,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
-      navigate("/area-manager");
+      navigate("/admin/area-manager");
       form.resetFields();
     })
     .catch((error) => {

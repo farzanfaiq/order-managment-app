@@ -12,7 +12,7 @@ const Dashboard = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.log("i am here.....");
-      navigate("/login");
+      navigate("/admin/login");
     }
   }, []);
 

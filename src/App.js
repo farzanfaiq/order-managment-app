@@ -27,7 +27,7 @@ function App() {
               ))}
             </Route>
 
-            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/admin/login" element={<Login />} />
 
             <Route path="user/login" element={<Userlogin />} />
             <Route path="user/signup" element={<Usersignup />} />

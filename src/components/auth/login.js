@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   if (token) {
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
 
   const onFinish = (values) => {

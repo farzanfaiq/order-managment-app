@@ -78,7 +78,7 @@ const AreaManagerCreate = () => {
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/area-manager">
+            <Link to="/admin/area-manager">
               {" "}
               <CaretLeftOutlined /> Back
             </Link>

@@ -75,7 +75,7 @@ const RiderCreate = () => {
 
         <Col span={3}>
           <Button type="pink" htmlType="button">
-            <Link to="/rider">
+            <Link to="/admin/rider">
               <CaretLeftOutlined /> Back
             </Link>
           </Button>
