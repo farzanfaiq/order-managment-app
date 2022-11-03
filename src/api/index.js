@@ -189,3 +189,58 @@ export const SignupUser = (form, values, navigate) => {
       message.error(error);
     });
 };
+
+// Items CRUD
+export const ItemsList = (setDataSource, setLoading) => {
+  axios
+    .get("/auth/items")
+    .then((response) => {
+      setDataSource(response.data.items);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error);
+    });
+};
+
+export const ItemsDelete = (record, setDataSource) => {
+  axios
+    .delete(`/auth/items/${record.id}`)
+    .then((response) => {
+      setDataSource((pre) => {
+        message.success(response.data.msg);
+        return pre.filter((items) => items.id !== record.id);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error);
+    });
+};
+
+export const ItemsCreateUpdate = (id, form, navigate, values) => {
+  let formData = new FormData();
+  formData.append("name", values.name);
+  formData.append("description", values.desc);
+  formData.append("price", values.price);
+  formData.append("tax", values.tax);
+  formData.append("discount", values.discount);
+
+  if (typeof values.picture !== "undefined") {
+    formData.append("picture", values.picture.file);
+  }
+
+  axios
+    .post(`/auth/items/${id}`, formData)
+    .then((response) => {
+      console.log(response);
+      message.success(response.data.msg);
+      navigate("/admin/items");
+      form.resetFields();
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error);
+    });
+};
