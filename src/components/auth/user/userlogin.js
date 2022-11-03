@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   Row,
   Col,
@@ -10,13 +10,24 @@ import {
   Layout,
 } from "antd";
 import { UserLogin } from "../../../api/index";
+import { LoginContext, LoginDispatchContext } from "../../../loginContext";
 import { useNavigate } from "react-router-dom";
 
 const Userlogin = () => {
+
+  const setUserDetails = useContext(LoginDispatchContext);
+  const authUser = useContext(LoginContext);
+
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    navigate("/user/dashboard");
+  }
+
   const onFinish = (values) => {
     console.log(values);
-    UserLogin(values, navigate);
+    UserLogin(values, setUserDetails);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

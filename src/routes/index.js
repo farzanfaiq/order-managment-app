@@ -7,15 +7,16 @@ import Rider from "../components/rider/index";
 import AreaManagerCreate from "../components/area_manager/create";
 import RiderCreate from "../components/rider/create";
 import Dashboard from "../components/dashboard";
+import Userlogin from "../components/auth/user/userlogin";
+import Usersignup from "../components/auth/user/usersignup";
+import UserDashboard from "../components/dashboard/userDashboard";
 import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
 
-const routes = [
+const AdminRoutes = [
   // Index
   { path: "/admin/dashboard", component: <Dashboard />, label: "Dashboard", shownav: true, icon: <PieChartOutlined /> },
   { path: "/admin/area-manager", component: <AreaManger />, label: "Area Manager", shownav: true, icon: <UserOutlined /> },
   { path: "/admin/rider", component: <Rider />, label: "Rider", shownav: true, icon: <UserOutlined /> },
-  { path: "/admin", component: <Dashboard /> },
-
 
   // Create
   { path: "/admin/area-manager/create", component: <AreaManagerCreate /> },
@@ -26,4 +27,14 @@ const routes = [
   { path: "/admin/rider/edit/:id", component: <RiderCreate /> },
 ];
 
-export default routes;
+
+const UserRoutes = [
+  { path: "/user/login", component: <Userlogin /> },
+  { path: "/user/signup", component: <Usersignup /> },
+  { path: "/user/dashboard", component: <UserDashboard /> },
+];
+
+export {
+  AdminRoutes,
+  UserRoutes
+}

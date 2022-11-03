@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Sider from "antd/lib/layout/Sider";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import routes from "../../routes";
+import { AdminRoutes } from "../../routes";
 
 const SidebarLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -10,7 +10,7 @@ const SidebarLayout = () => {
   const [selectedKey, setSelectedKey] = useState("");
   const items = useMemo(() => {
     let arr = [];
-    routes.forEach((route, key) => {
+    AdminRoutes.forEach((route, key) => {
       if (route.shownav) {
         arr.push({
           key: key,
