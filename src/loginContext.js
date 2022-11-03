@@ -8,7 +8,7 @@ const LoginDispatchContext = createContext(undefined);
 
 const LoginProvider = ({ children }) => {
   const [authDetails, setAuthDetails] = useState({
-    username: "John Doe",
+    username: "",
     isLoggedIn: false,
   });
 

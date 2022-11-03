@@ -4,15 +4,23 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+import { useNavigate, redirect } from "react-router-dom";
 import BodyLayout from "./BodyLayout";
 import FooterLayout from "./FooterLayout";
 import SidebarLayout from "./SidebarLayout";
 
 const MainLayout = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("token. vs 12.....", token);
+    navigate("/admin/login");
+  }
   return (
     <Layout
       style={{

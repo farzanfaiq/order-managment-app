@@ -3,16 +3,15 @@ import { Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("token");
 axios.defaults.headers.common["mode"] = "no-cors";
 
 console.log(process.env.REACT_APP_API_URL);
 export const LoginAdmin = (values, setAuthState) => {
   axios
-    .post("/auth/login", values)
+    .post("/login", values)
     .then((response) => {
       message.success(response.data.msg);
       const token = response.data.access_token;
@@ -174,7 +173,7 @@ export const SignupUser = (form, values, navigate) => {
   formData.append("c_password", values.c_password);
   formData.append("phone_number", values.phone_number);
   formData.append("gender", values.gender);
-  formData.append("role", 'customer');
+  formData.append("role", "customer");
 
   axios
     .post(`/auth/register`, formData)
