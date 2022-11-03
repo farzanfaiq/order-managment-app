@@ -7,11 +7,12 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("token");
 axios.defaults.headers.common["mode"] = "no-cors";
-
+axios.defaults.headers.common["Content-Type"] = "application/json";
+axios.defaults.headers.common = "Access-Control-Allow-Origin";
 console.log(process.env.REACT_APP_API_URL);
 export const LoginAdmin = (values, setAuthState) => {
   axios
-    .post("/login", values)
+    .post("/auth/login", values)
     .then((response) => {
       message.success(response.data.msg);
       const token = response.data.access_token;
@@ -45,7 +46,7 @@ export const LogoutUser = (setAuthState) => {
 
 export const RidersList = (setDataSource, setLoading) => {
   axios
-    .get("/rider")
+    .get("/auth/rider")
     .then((response) => {
       setDataSource(response.data.riders);
       setLoading(false);
@@ -58,7 +59,7 @@ export const RidersList = (setDataSource, setLoading) => {
 
 export const RiderDelete = (record, setDataSource) => {
   axios
-    .delete(`/rider/${record.id}`)
+    .delete(`/auth/rider/${record.id}`)
     .then((response) => {
       setDataSource((pre) => {
         message.success(response.data.msg);
@@ -82,7 +83,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
   }
 
   axios
-    .post(`/rider/${id}`, formData)
+    .post(`/auth/rider/${id}`, formData)
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
@@ -97,7 +98,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
 
 export const ManagerList = (setDataSource, setLoading) => {
   axios
-    .get("/area-manager")
+    .get("/auth/area-manager")
     .then((response) => {
       setDataSource(response.data.area_managers);
       setLoading(false);
@@ -110,7 +111,7 @@ export const ManagerList = (setDataSource, setLoading) => {
 
 export const ManagerDelete = (record, setDataSource) => {
   axios
-    .delete(`/area-manager/${record.id}`)
+    .delete(`/auth/area-manager/${record.id}`)
     .then((response) => {
       setDataSource((pre) => {
         message.success(response.data.msg);
@@ -136,7 +137,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
   }
 
   axios
-    .post(`/area-manager/${id}`, formData)
+    .post(`/auth/area-manager/${id}`, formData)
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
