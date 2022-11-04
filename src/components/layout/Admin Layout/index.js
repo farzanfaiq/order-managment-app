@@ -19,7 +19,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (!token) {
-      return navigate("/");
+      return navigate("/admin/login");
     }
   }, [token]);
 
