@@ -9,17 +9,17 @@ import {
 import { Layout } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import BodyLayout from "./BodyLayout";
-import FooterLayout from "./FooterLayout";
-import SidebarLayout from "./SidebarLayout";
+import BodyLayout from "../Admin Layout/BodyLayout";
+import FooterLayout from "../Admin Layout/FooterLayout";
+import SidebarLayout from "../Admin Layout/SidebarLayout";
 
 const MainLayout = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("admin_token");
 
   useEffect(() => {
     if (!token) {
-      return navigate("/admin/login");
+      return navigate("/");
     }
   }, [token]);
 

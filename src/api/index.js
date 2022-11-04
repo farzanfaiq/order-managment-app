@@ -4,30 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("token");
-axios.defaults.headers.common["mode"] = "no-cors";
-axios.defaults.headers.common["Content-Type"] = "application/json";
-axios.defaults.headers.common = "Access-Control-Allow-Origin";
-console.log(process.env.REACT_APP_API_URL);
-export const LoginAdmin = (values, setAuthState) => {
-  axios
-    .post("/auth/login", values)
-    .then((response) => {
-      message.success(response.data.msg);
-      const token = response.data.access_token;
-      localStorage.setItem("token", token);
-      // Passing name in Local Storage
-      const name = response.data.user.name;
-      localStorage.setItem("loginName", name);
-      localStorage.setItem("authorize", true);
-      setAuthState({ username: "", isLoggedIn: true });
-    })
-    .catch((error) => {
-      console.log(error);
-      message.error(error.response.data.msg);
-    });
-};
 
 export const LogoutUser = (setAuthState) => {
   // axios
@@ -46,7 +22,11 @@ export const LogoutUser = (setAuthState) => {
 
 export const RidersList = (setDataSource, setLoading) => {
   axios
-    .get("/auth/rider")
+    .get("/rider", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource(response.data.riders);
       setLoading(false);
@@ -59,7 +39,11 @@ export const RidersList = (setDataSource, setLoading) => {
 
 export const RiderDelete = (record, setDataSource) => {
   axios
-    .delete(`/auth/rider/${record.id}`)
+    .delete(`/rider/${record.id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource((pre) => {
         message.success(response.data.msg);
@@ -83,7 +67,11 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
   }
 
   axios
-    .post(`/auth/rider/${id}`, formData)
+    .post(`/rider/${id}`, formData, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
@@ -98,7 +86,11 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
 
 export const ManagerList = (setDataSource, setLoading) => {
   axios
-    .get("/auth/area-manager")
+    .get("/area-manager", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource(response.data.area_managers);
       setLoading(false);
@@ -111,7 +103,11 @@ export const ManagerList = (setDataSource, setLoading) => {
 
 export const ManagerDelete = (record, setDataSource) => {
   axios
-    .delete(`/auth/area-manager/${record.id}`)
+    .delete(`/area-manager/${record.id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource((pre) => {
         message.success(response.data.msg);
@@ -137,7 +133,11 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
   }
 
   axios
-    .post(`/auth/area-manager/${id}`, formData)
+    .post(`/area-manager/${id}`, formData, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);
@@ -150,14 +150,44 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
     });
 };
 
-// User Login Mehtod
-export const UserLogin = (values, navigate) => {
+export const LoginAdmin = (values, setAuthState) => {
+  let payload = { ...values };
+  payload.type = "admin";
   axios
-    .post("/auth/login", values)
+    .post("/auth/login", payload)
     .then((response) => {
       message.success(response.data.msg);
-      console.log(response);
-      navigate("/user/dashboard");
+      const token = response.data.access_token;
+      localStorage.setItem("admin_token", token);
+      // Passing name in Local Storage
+      const name = response.data.user.name;
+      localStorage.setItem("admin_loginName", name);
+      console.log([token, name]);
+      localStorage.setItem("authorize", true);
+      setAuthState({ username: "", isLoggedIn: true });
+    })
+    .catch((error) => {
+      console.log(error);
+      message.error(error.response.data.msg);
+    });
+};
+
+// User Login Mehtod
+export const UserLogin = (values, setAuthState) => {
+  let payload = { ...values };
+  payload.type = "customer";
+  axios
+    .post("/auth/login", payload)
+    .then((response) => {
+      message.success(response.data.msg);
+      const token = response.data.access_token;
+      localStorage.setItem("customer_token", token);
+      // Passing name in Local Storage
+      const name = response.data.user.name;
+      localStorage.setItem("customer_loginName", name);
+      console.log([token, name]);
+      localStorage.setItem("authorize", true);
+      setAuthState({ username: "", isLoggedIn: true });
     })
     .catch((error) => {
       console.log(error);
@@ -193,7 +223,11 @@ export const SignupUser = (form, values, navigate) => {
 // Items CRUD
 export const ItemsList = (setDataSource, setLoading) => {
   axios
-    .get("/auth/items")
+    .get("/items", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource(response.data.items);
       setLoading(false);
@@ -206,7 +240,11 @@ export const ItemsList = (setDataSource, setLoading) => {
 
 export const ItemsDelete = (record, setDataSource) => {
   axios
-    .delete(`/auth/items/${record.id}`)
+    .delete(`/items/${record.id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       setDataSource((pre) => {
         message.success(response.data.msg);
@@ -232,7 +270,11 @@ export const ItemsCreateUpdate = (id, form, navigate, values) => {
   }
 
   axios
-    .post(`/auth/items/${id}`, formData)
+    .post(`/items/${id}`, formData, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("admin_token"),
+      },
+    })
     .then((response) => {
       console.log(response);
       message.success(response.data.msg);

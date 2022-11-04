@@ -2,26 +2,26 @@ import React, { useEffect, useMemo, useState } from "react";
 import Sider from "antd/lib/layout/Sider";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import routes from "../../routes";
+import { UserRoutes } from "../../../routes/index";
 
-const SidebarLayout = () => {
+const UserSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation()
+  const location = useLocation();
   const [selectedKey, setSelectedKey] = useState("");
   const items = useMemo(() => {
     let arr = [];
-    routes.forEach((route, key) => {
+    UserRoutes.forEach((route, key) => {
       if (route.shownav) {
         arr.push({
           key: key,
           label: <Link to={route.path}>{route.label}</Link>,
           icon: route.icon,
-          path: route.path
-        })
+          path: route.path,
+        });
       }
-    })
+    });
     return arr;
-  }, [])
+  }, []);
 
   useEffect(() => {
     for (var i in items) {
@@ -29,7 +29,7 @@ const SidebarLayout = () => {
         setSelectedKey(items[i].key);
       }
     }
-  }, [location])
+  }, [location]);
   console.log("items", items);
   return (
     <Sider
@@ -40,7 +40,7 @@ const SidebarLayout = () => {
       <div className="logo" />
       <Menu
         theme="dark"
-        selectedKeys={[(selectedKey).toString()]}
+        selectedKeys={[selectedKey.toString()]}
         mode="inline"
         items={items}
       />
@@ -48,4 +48,4 @@ const SidebarLayout = () => {
   );
 };
 
-export default SidebarLayout;
+export default UserSidebar;

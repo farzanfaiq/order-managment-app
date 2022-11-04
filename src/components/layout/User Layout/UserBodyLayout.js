@@ -1,24 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Header, Content } from "antd/lib/layout/layout";
-import { Menu, Dropdown, Space } from "antd";
+import { Menu, Dropdown, Space, Layout, Typography } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
-import "./layout.scss";
-import { LogoutUser } from "../../api/index";
-import { LoginContext, LoginDispatchContext } from "../../loginContext";
+import { LogoutUser } from "../../../api/index";
+import { LoginContext, LoginDispatchContext } from "../../../loginContext";
 
-const BodyLayout = () => {
+const UserBodyLayout = () => {
   const setUserDetails = useContext(LoginDispatchContext);
   const authUser = useContext(LoginContext);
-
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("customer_token");
   if (!token) {
-    navigate("/admin/login");
+    navigate("/");
   }
   const items1 = ["1"].map((key) => ({
     key,
-    label: localStorage.getItem("loginName"),
+    label: localStorage.getItem("customer_loginName"),
     icon: <UserOutlined />,
   }));
   const handleLogout = (e) => {
@@ -42,8 +40,10 @@ const BodyLayout = () => {
     />
   );
 
+  const { Title } = Typography;
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <React.Fragment>
+    <Layout>
       <Header
         className="header"
         style={{
@@ -82,11 +82,11 @@ const BodyLayout = () => {
           </a>
         </Dropdown>
       </Header>
-
-      <Content style={{ margin: "0 16px" }}>
+      <Content style={{ margin: "0px 16px" }}>
         <Outlet />
       </Content>
-    </React.Fragment>
+    </Layout>
   );
 };
-export default BodyLayout;
+
+export default UserBodyLayout;

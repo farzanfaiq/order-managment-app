@@ -7,15 +7,18 @@ import Rider from "../components/rider/index";
 import AreaManagerCreate from "../components/area_manager/create";
 import RiderCreate from "../components/rider/create";
 import Dashboard from "../components/dashboard";
+import UserDashboard from "../components/dashboard/userDashboard";
+import Userlogin from "../components/auth/user/userlogin";
+import Usersignup from "../components/auth/user/usersignup";
+import Items from "../components/products/items/items";
+import AddItem from "../components/products/items/create";
 import {
   PieChartOutlined,
   UserOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
-import Items from "../components/products/items";
-import AddItem from "../components/products/items/create";
 
-const routes = [
+const AdminRoutes = [
   // Index
   {
     path: "/admin/dashboard",
@@ -58,4 +61,15 @@ const routes = [
   { path: "/admin/items/edit/:id", component: <AddItem /> },
 ];
 
-export default routes;
+const UserRoutes = [
+  {
+    path: "/user/dashboard",
+    component: <UserDashboard />,
+    label: "Dashboard",
+    shownav: true,
+    icon: <DashboardOutlined />,
+  },
+  // { path: "/user/dashboard", component: <UserDashboard /> },
+];
+
+export { AdminRoutes, UserRoutes };

@@ -8,18 +8,24 @@ import {
   Input,
   Layout,
 } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./login.scss";
 import { LoginAdmin } from "../../api/index";
 import { LoginContext, LoginDispatchContext } from "../../loginContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  // const customertoken = localStorage.getItem("customer_token");
+  // useEffect(() => {
+  //   if (customertoken) {
+  //     navigate("/user/dashboard");
+  //   }
+  // }, []);
   const setUserDetails = useContext(LoginDispatchContext);
   const authUser = useContext(LoginContext);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("admin_token");
   if (token) {
     navigate("/admin/dashboard");
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Row,
   Col,
@@ -10,13 +10,28 @@ import {
   Layout,
 } from "antd";
 import { UserLogin } from "../../../api/index";
+import { LoginContext, LoginDispatchContext } from "../../../loginContext";
 import { useNavigate } from "react-router-dom";
 
 const Userlogin = () => {
+  const setUserDetails = useContext(LoginDispatchContext);
+  const authUser = useContext(LoginContext);
+
   const navigate = useNavigate();
+  // const admintoken = localStorage.getItem("admin_token");
+  // useEffect(() => {
+  //   if (admintoken) {
+  //     navigate("/admin/dashboard");
+  //   }
+  // }, []);
+  const token = localStorage.getItem("customer_token");
+  if (token) {
+    navigate("/user/dashboard");
+  }
+
   const onFinish = (values) => {
     console.log(values);
-    UserLogin(values, navigate);
+    UserLogin(values, setUserDetails);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

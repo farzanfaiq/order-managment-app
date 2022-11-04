@@ -9,10 +9,10 @@ const Dashboard = () => {
   console.log("auth user.........", authUser);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     if (!token) {
       console.log("i am here.....");
-      navigate("/admin/login");
+      navigate("/");
     }
   }, []);
 
@@ -20,7 +20,7 @@ const Dashboard = () => {
   return (
     <div>
       <Title level={3} className="my-2">
-        Dashboard
+        Admin Dashboard
       </Title>
       <Title level={5} className="my-2">
         Welcome to the Dashboard !

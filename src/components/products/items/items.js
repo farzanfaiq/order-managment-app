@@ -2,7 +2,7 @@ import { Button, Modal, Table, Row, Typography } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ItemsList } from "../../api/index";
+import { ItemsList } from "../../../api/index";
 
 const Items = () => {
   const [dataSource, setDataSource] = useState([]);
