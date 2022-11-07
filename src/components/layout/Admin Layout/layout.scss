@@ -1,0 +1,19 @@
+a.menu-dropdown {
+  background: #d91d6d;
+}
+ul.dropdown-menu {
+  background: #fff;
+  padding: 0;
+  li {
+    padding: 10px 10px 10px 20px;
+    &:hover {
+      background: #d91d6d;
+    }
+  }
+  a.dropdown-item {
+    color: #000;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
