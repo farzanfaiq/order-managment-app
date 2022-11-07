@@ -19,6 +19,11 @@ const { Option } = Select;
 const Usersignup = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const token = localStorage.getItem("customer_token");
+  if (token) {
+    window.location.replace("/user/dashboard");
+  }
+
   const onFinish = (values) => {
     console.log(values);
     SignupUser(form, values, navigate);
@@ -38,7 +43,7 @@ const Usersignup = () => {
         backgroundSize: "contain",
         height: "100%",
       }}
-      //   className="h-100"
+    //   className="h-100"
     >
       <Row
         style={{

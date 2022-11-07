@@ -41,13 +41,13 @@ const AdminRoutes = [
     shownav: true,
     icon: <UserOutlined />,
   },
-  {
-    path: "/admin/items",
-    component: <Items />,
-    label: "Items",
-    shownav: true,
-    icon: <PieChartOutlined />,
-  },
+  // {
+  //   path: "/admin/items",
+  //   component: <Items />,
+  //   label: "Items",
+  //   shownav: true,
+  //   icon: <PieChartOutlined />,
+  // },
   { path: "/admin", component: <Dashboard /> },
 
   // Create
