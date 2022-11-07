@@ -27,7 +27,7 @@ const Userlogin = () => {
   // }, []);
   const token = localStorage.getItem("customer_token");
   if (token) {
-    window.location.replace("/user/dashboard");
+    navigate("/user/dashboard");
   }
 
   const onFinish = (values) => {
