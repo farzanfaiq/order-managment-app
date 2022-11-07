@@ -29,6 +29,10 @@ const Rider = () => {
       dataIndex: "name",
     },
     {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
       title: "Phone Number",
       dataIndex: "phone_number",
       render: (t, r) => {
@@ -104,6 +108,9 @@ const Rider = () => {
         dataSource={dataSource}
         rowKey="id"
         loading={loading}
+        scroll={{
+          x: 500,
+        }}
       />
     </div>
   );

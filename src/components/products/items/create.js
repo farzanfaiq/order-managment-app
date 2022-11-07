@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import { ItemsCreateUpdate } from "../../../api";
+import "../../area_manager/area_manger.scss";
 const layout = {
   labelCol: {
     span: 3,
@@ -57,15 +58,15 @@ const AddItem = () => {
   const { Title } = Typography;
   return (
     <React.Fragment>
-      <Row className="my-2 align-items-center">
-        <Col span={21}>
+      <Row className="my-2 align-items-center form_row">
+        <Col className="form_col" span={21}>
           <Title level={3} className="my-2">
             {id != "" ? "Edit" : "Add"} Item{" "}
           </Title>
         </Col>
 
-        <Col span={3}>
-          <Button type="pink" htmlType="button">
+        <Col className="form_back_col" span={3}>
+          <Button className="back_btn" type="pink" htmlType="button">
             <Link to="/admin/items">
               {" "}
               <CaretLeftOutlined /> Back
@@ -189,6 +190,7 @@ const AddItem = () => {
                 ...layout.wrapperCol,
                 offset: 3,
               }}
+              className="submit"
             >
               <Button type="pink" htmlType="submit">
                 {id != "" ? "Update" : "Create"}

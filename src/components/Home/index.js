@@ -13,7 +13,13 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <Title level={1} className="my-2">
+        <Title
+          level={1}
+          style={{
+            textAlign: "center",
+          }}
+          className="my-2"
+        >
           Order Management System
         </Title>
       </Layout>

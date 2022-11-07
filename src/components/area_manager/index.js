@@ -111,6 +111,10 @@ const AreaManager = () => {
         dataSource={dataSource}
         rowKey="id"
         loading={loading}
+        scrollToFirstRowOnChange={true}
+        scroll={{
+          x: 500,
+        }}
       />
     </div>
   );

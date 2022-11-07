@@ -49,13 +49,13 @@ const Login = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
       }}
-      className="h-100"
+      className="h-100 login_main_div"
     >
       <Row
         style={{
           height: "75vh",
         }}
-        className="align-items-center"
+        className="align-items-center login_main_row"
       >
         <Col
           style={{
@@ -66,6 +66,7 @@ const Login = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
+          className="login_first_col"
           span={10}
         >
           <div className="text-center">
@@ -89,7 +90,7 @@ const Login = () => {
             </h3>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={12} className="login_second_col">
           {/* <img width="150" src="./logo.png" /> */}
           <Title
             style={{

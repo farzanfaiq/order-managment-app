@@ -1,0 +1,57 @@
+// IPAD Portrait and Landscape CSS
+@media (min-width: 768px) and (max-width: 1023px) {
+  .login_main_div {
+    height: max-content;
+    .login_main_row {
+      height: 50vh !important;
+      .login_first_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 0px !important;
+      }
+      .login_second_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 60px 40px 0px;
+      }
+    }
+  }
+}
+// Mobile Landscape CSS
+@media (min-width: 481px) and (max-width: 767px) {
+  .login_main_div {
+    height: max-content;
+    .login_main_row {
+      .login_first_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 0px !important;
+      }
+
+      .login_second_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 0 30px;
+      }
+    }
+  }
+}
+//Mobile Portrait CSS
+@media (min-width: 320px) and (max-width: 460px) {
+  .login_main_div {
+    height: max-content;
+    .login_main_row {
+      height: 50vh !important;
+      .login_first_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 0px !important;
+      }
+      .login_second_col {
+        max-width: 100%;
+        flex: 100%;
+        margin: 0 20px;
+      }
+    }
+  }
+}

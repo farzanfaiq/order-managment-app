@@ -16,6 +16,7 @@ import { UploadOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 import { RiderCreateUpdate } from "../../api/index";
+import "../area_manager/area_manger.scss";
 
 const layout = {
   labelCol: {
@@ -66,15 +67,15 @@ const RiderCreate = () => {
 
   return (
     <React.Fragment>
-      <Row className="my-2 align-items-center">
-        <Col span={21}>
+      <Row className="my-2 align-items-center form_row">
+        <Col className="form_col" span={21}>
           <Title level={3} className="my-2">
             {id != "" ? "Edit" : "Add"} Rider{" "}
           </Title>
         </Col>
 
-        <Col span={3}>
-          <Button type="pink" htmlType="button">
+        <Col className="form_back_col" span={3}>
+          <Button className="back_btn" type="pink" htmlType="button">
             <Link to="/admin/rider">
               <CaretLeftOutlined /> Back
             </Link>
@@ -107,7 +108,22 @@ const RiderCreate = () => {
             >
               <Input />
             </Form.Item>
-
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
             <Form.Item
               name="phone_number"
               label="Phone"
@@ -188,6 +204,7 @@ const RiderCreate = () => {
                 ...layout.wrapperCol,
                 offset: 3,
               }}
+              className="submit"
             >
               <Button type="pink" htmlType="submit">
                 {id != "" ? "Update" : "Create"}

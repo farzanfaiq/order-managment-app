@@ -56,6 +56,7 @@ const Usersignup = () => {
             justifyContent: "center",
           }}
           span={8}
+          className="signup_first_col"
         >
           <div className="text-center">
             <h1
@@ -78,7 +79,7 @@ const Usersignup = () => {
             </h3>
           </div>
         </Col>
-        <Col span={14}>
+        <Col span={14} className="signup_second_col">
           {/* <img width="150" src="./logo.png" /> */}
           <Title
             style={{

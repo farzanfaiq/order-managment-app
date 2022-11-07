@@ -12,6 +12,7 @@ import {
 import { UserLogin } from "../../../api/index";
 import { LoginContext, LoginDispatchContext } from "../../../loginContext";
 import { useNavigate } from "react-router-dom";
+import "../login.scss";
 
 const Userlogin = () => {
   const setUserDetails = useContext(LoginDispatchContext);
@@ -47,13 +48,13 @@ const Userlogin = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
       }}
-      className="h-100"
+      className="h-100 login_main_div"
     >
       <Row
         style={{
           height: "75vh",
         }}
-        className="align-items-center"
+        className="align-items-center login_main_row"
       >
         <Col
           style={{
@@ -65,6 +66,7 @@ const Userlogin = () => {
             justifyContent: "center",
           }}
           span={10}
+          className="login_first_col"
         >
           <div className="text-center">
             <h1
@@ -87,7 +89,7 @@ const Userlogin = () => {
             </h3>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={12} className="login_second_col">
           {/* <img width="150" src="./logo.png" /> */}
           <Title
             style={{

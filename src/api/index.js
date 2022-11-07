@@ -59,6 +59,8 @@ export const RiderDelete = (record, setDataSource) => {
 export const RiderCreateUpdate = (id, form, navigate, values) => {
   let formData = new FormData();
   formData.append("name", values.name);
+  formData.append("email", values.email);
+  formData.append("role", "rider");
   formData.append("area_name", values.area_name);
   formData.append("phone_number", values.phone_number);
 
@@ -124,6 +126,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
   let formData = new FormData();
   formData.append("name", values.name);
   formData.append("email", values.email);
+  formData.append("role", "manager");
   formData.append("phone_number", values.phone_number);
   formData.append("area_name", values.area_name);
   formData.append("zip_code", values.zip_code);
@@ -156,6 +159,8 @@ export const LoginAdmin = (values, setAuthState) => {
   axios
     .post("/auth/login", payload)
     .then((response) => {
+      const role = response.data.user.roles[0].name;
+      localStorage.setItem("login_role", role);
       message.success(response.data.msg);
       const token = response.data.access_token;
       localStorage.setItem("admin_token", token);
@@ -180,6 +185,8 @@ export const UserLogin = (values, setAuthState) => {
     .post("/auth/login", payload)
     .then((response) => {
       message.success(response.data.msg);
+      const role = response.data.user.roles[0].name;
+      localStorage.setItem("user_login_role", role);
       const token = response.data.access_token;
       localStorage.setItem("customer_token", token);
       // Passing name in Local Storage

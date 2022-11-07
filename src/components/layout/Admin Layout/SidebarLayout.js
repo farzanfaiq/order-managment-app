@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Sider from "antd/lib/layout/Sider";
-import { Menu } from "antd";
+import { Collapse, Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { AdminRoutes } from "../../../routes/index";
+import "./layout.scss";
 
 const SidebarLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -36,6 +37,10 @@ const SidebarLayout = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
+      // collapsedWidth="0"
+      breakpoint="lg"
+      collapsedWidth="0"
+      onBreakpoint={(broken) => {}}
     >
       <div className="logo" />
       <Menu

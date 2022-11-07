@@ -103,6 +103,9 @@ const Items = () => {
         dataSource={dataSource}
         rowKey="id"
         loading={loading}
+        scroll={{
+          x: 500,
+        }}
       />
     </div>
   );
