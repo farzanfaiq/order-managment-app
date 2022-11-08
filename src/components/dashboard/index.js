@@ -6,8 +6,7 @@ import { LoginContext } from "../../loginContext";
 const Dashboard = () => {
   const navigate = useNavigate();
   const authUser = useContext(LoginContext);
-  console.log("auth user.........", authUser);
-
+  const role = localStorage.getItem("login_role");
   useEffect(() => {
     const token = localStorage.getItem("admin_token");
     if (!token) {
@@ -19,8 +18,8 @@ const Dashboard = () => {
   const { Title } = Typography;
   return (
     <div>
-      <Title level={3} className="my-2">
-        Admin Dashboard
+      <Title level={3} className="my-2 text-capitalize">
+        {role} Dashboard
       </Title>
       <Title level={5} className="my-2">
         Welcome to the Dashboard !

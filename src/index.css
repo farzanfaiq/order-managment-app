@@ -36,6 +36,10 @@ a {
   text-align: center;
 }
 
+.text-capitalize{
+  text-transform: capitalize;
+}
+
 .bg-white {
   background: #fff;
 }
