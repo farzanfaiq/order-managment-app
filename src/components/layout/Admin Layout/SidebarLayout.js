@@ -14,7 +14,7 @@ const SidebarLayout = () => {
   const items = useMemo(() => {
     let arr = [];
     AdminRoutes.forEach((route, key) => {
-      if (route.shownav) {
+      if (route.shownav && route.access.indexOf(role) > -1) {
         arr.push({
           key: key,
           label: <Link to={route.path}>{route.label}</Link>,

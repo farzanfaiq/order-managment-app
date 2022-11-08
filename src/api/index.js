@@ -159,17 +159,20 @@ export const LoginAdmin = (values, setAuthState) => {
     .post("/auth/login", payload)
     .then((response) => {
       message.success(response.data.msg);
+
       const token = response.data.access_token;
-      localStorage.setItem("admin_token", token);
-      // Passing name in Local Storage
       const name = response.data.user.name;
+      const role = response.data.user.roles[0].name;
+
+      // Passing name in Local Storage
+      localStorage.setItem("admin_token", token);
       localStorage.setItem("admin_loginName", name);
-      console.log([token, name]);
       localStorage.setItem("authorize", true);
+      localStorage.setItem("login_role", role);
+
       setAuthState({ username: "", isLoggedIn: true });
     })
     .catch((error) => {
-      console.log(error);
       message.error(error.response.data.msg);
     });
 };
@@ -187,7 +190,6 @@ export const UserLogin = (values, setAuthState) => {
       // Passing name in Local Storage
       const name = response.data.user.name;
       localStorage.setItem("customer_loginName", name);
-      console.log([token, name]);
       localStorage.setItem("authorize", true);
       setAuthState({ username: "", isLoggedIn: true });
     })

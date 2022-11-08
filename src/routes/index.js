@@ -8,8 +8,6 @@ import AreaManagerCreate from "../components/area_manager/create";
 import RiderCreate from "../components/rider/create";
 import Dashboard from "../components/dashboard";
 import UserDashboard from "../components/dashboard/userDashboard";
-import Userlogin from "../components/auth/user/userlogin";
-import Usersignup from "../components/auth/user/usersignup";
 import Items from "../components/products/items/items";
 import AddItem from "../components/products/items/create";
 import {
@@ -26,6 +24,7 @@ const AdminRoutes = [
     label: "Dashboard",
     shownav: true,
     icon: <DashboardOutlined />,
+    access: ["admin", "manager", "rider"]
   },
   {
     path: "/admin/area-manager",
@@ -33,6 +32,7 @@ const AdminRoutes = [
     label: "Area Manager",
     shownav: true,
     icon: <UserOutlined />,
+    access: ["admin"]
   },
   {
     path: "/admin/rider",
@@ -40,6 +40,7 @@ const AdminRoutes = [
     label: "Rider",
     shownav: true,
     icon: <UserOutlined />,
+    access: ["admin", "manager"]
   },
   {
     path: "/admin/items",
