@@ -64,7 +64,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
   formData.append("phone_number", values.phone_number);
   formData.append("role", 'rider');
 
-  if (typeof values.picture !== "undefined") {
+  if (typeof values.picture !== "undefined" && values.picture != null) {
     formData.append("picture", values.picture.file);
   }
 
@@ -131,7 +131,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
   formData.append("zip_code", values.zip_code);
   formData.append("role", 'manager');
 
-  if (typeof values.picture !== "undefined") {
+  if (typeof values.picture !== "undefined" && values.picture != null) {
     formData.append("picture", values.picture.file);
   }
 
