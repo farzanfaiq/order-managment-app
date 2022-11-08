@@ -270,7 +270,7 @@ export const ItemsCreateUpdate = (id, form, navigate, values) => {
   formData.append("tax", values.tax);
   formData.append("discount", values.discount);
 
-  if (typeof values.picture !== "undefined") {
+  if (typeof values.picture !== "undefined" && values.picture != null) {
     formData.append("picture", values.picture.file);
   }
 
