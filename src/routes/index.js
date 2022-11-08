@@ -40,7 +40,7 @@ const AdminRoutes = [
     label: "Rider",
     shownav: true,
     icon: <UserOutlined />,
-    access: ["admin", "manager"]
+    access: ["admin"]
   },
   {
     path: "/admin/items",
