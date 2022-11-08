@@ -13,29 +13,17 @@ const SidebarLayout = () => {
   const role = localStorage.getItem("login_role");
   const items = useMemo(() => {
     let arr = [];
-    if (role == "Admin") {
-      AdminRoutes.forEach((route, key) => {
-        if (route.shownav && route.role == "Admin") {
-          arr.push({
-            key: key,
-            label: <Link to={route.path}>{route.label}</Link>,
-            icon: route.icon,
-            path: route.path,
-          });
-        }
-      });
-    } else if (role == "Manager") {
-      AdminRoutes.forEach((route, key) => {
-        if (route.shownav && route.role == "Manager") {
-          arr.push({
-            key: key,
-            label: <Link to={route.path}>{route.label}</Link>,
-            icon: route.icon,
-            path: route.path,
-          });
-        }
-      });
-    }
+    AdminRoutes.forEach((route, key) => {
+      if (route.shownav) {
+        arr.push({
+          key: key,
+          label: <Link to={route.path}>{route.label}</Link>,
+          icon: route.icon,
+          path: route.path,
+        });
+      }
+    });
+
     return arr;
   }, []);
 
@@ -46,7 +34,6 @@ const SidebarLayout = () => {
       }
     }
   }, [location]);
-  console.log("items", items);
   return (
     <Sider
       collapsible
@@ -55,7 +42,7 @@ const SidebarLayout = () => {
       // collapsedWidth="0"
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={(broken) => {}}
+      onBreakpoint={(broken) => { }}
     >
       <div className="logo" />
       <Menu

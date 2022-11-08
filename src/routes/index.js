@@ -26,7 +26,6 @@ const AdminRoutes = [
     label: "Dashboard",
     shownav: true,
     icon: <DashboardOutlined />,
-    role: "Admin" || "Manager",
   },
   {
     path: "/admin/area-manager",
@@ -34,7 +33,6 @@ const AdminRoutes = [
     label: "Area Manager",
     shownav: true,
     icon: <UserOutlined />,
-    role: "Admin",
   },
   {
     path: "/admin/rider",
@@ -42,15 +40,13 @@ const AdminRoutes = [
     label: "Rider",
     shownav: true,
     icon: <UserOutlined />,
-    role: "Admin" || "Manager",
   },
   {
     path: "/admin/items",
     component: <Items />,
     label: "Items",
-    shownav: true,
+    shownav: false,
     icon: <PieChartOutlined />,
-    role: "Manager",
   },
   { path: "/admin", component: <Dashboard /> },
 
