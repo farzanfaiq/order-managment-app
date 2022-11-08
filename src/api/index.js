@@ -59,6 +59,7 @@ export const RiderDelete = (record, setDataSource) => {
 export const RiderCreateUpdate = (id, form, navigate, values) => {
   let formData = new FormData();
   formData.append("name", values.name);
+  formData.append("email", values.email);
   formData.append("area_name", values.area_name);
   formData.append("phone_number", values.phone_number);
   formData.append("role", 'rider');
