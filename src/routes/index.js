@@ -10,13 +10,15 @@ import Dashboard from "../components/dashboard";
 import UserDashboard from "../components/dashboard/userDashboard";
 import Items from "../components/products/items/items";
 import AddItem from "../components/products/items/create";
+import { intersection } from "lodash";
+
 import {
   PieChartOutlined,
   UserOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
 
-const AdminRoutes = [
+const AppRoutes = [
   // Index
   {
     path: "/admin/dashboard",
@@ -24,7 +26,7 @@ const AdminRoutes = [
     label: "Dashboard",
     shownav: true,
     icon: <DashboardOutlined />,
-    access: ["admin", "manager", "rider"]
+    access: ["admin", "manager", "rider"],
   },
   {
     path: "/admin/area-manager",
@@ -32,7 +34,7 @@ const AdminRoutes = [
     label: "Area Manager",
     shownav: true,
     icon: <UserOutlined />,
-    access: ["admin"]
+    access: ["admin"],
   },
   {
     path: "/admin/rider",
@@ -40,7 +42,7 @@ const AdminRoutes = [
     label: "Rider",
     shownav: true,
     icon: <UserOutlined />,
-    access: ["admin", "manager"]
+    access: ["admin", "manager"],
   },
   {
     path: "/admin/items",
@@ -52,25 +54,49 @@ const AdminRoutes = [
   { path: "/admin", component: <Dashboard /> },
 
   // Create
-  { path: "/admin/area-manager/create", component: <AreaManagerCreate /> },
-  { path: "/admin/rider/create", component: <RiderCreate /> },
+  {
+    path: "/admin/area-manager/create",
+    component: <AreaManagerCreate />,
+    access: ["admin"],
+  },
+  {
+    path: "/admin/rider/create",
+    component: <RiderCreate />,
+    access: ["admin", "manager"],
+  },
   { path: "/admin/items/create", component: <AddItem /> },
 
   // Edit
-  { path: "/admin/area-manager/edit/:id", component: <AreaManagerCreate /> },
-  { path: "/admin/rider/edit/:id", component: <RiderCreate /> },
+  {
+    path: "/admin/area-manager/edit/:id",
+    component: <AreaManagerCreate />,
+    access: ["admin"],
+  },
+  {
+    path: "/admin/rider/edit/:id",
+    component: <RiderCreate />,
+    access: ["admin", "manager"],
+  },
   { path: "/admin/items/edit/:id", component: <AddItem /> },
-];
+  // ];
 
-const UserRoutes = [
+  // const UserRoutes = [
   {
     path: "/user/dashboard",
     component: <UserDashboard />,
     label: "Dashboard",
     shownav: true,
     icon: <DashboardOutlined />,
+    access: ["customer"],
   },
   // { path: "/user/dashboard", component: <UserDashboard /> },
 ];
+export const getAllowedRoutes = (routes) => {
+  const roles = JSON.parse(localStorage.getItem("login_roles"));
+  return routes.filter(({ access }) => {
+    if (!access) return true;
+    else return intersection(access, roles).length;
+  });
+};
 
-export { AdminRoutes, UserRoutes };
+export { AppRoutes };

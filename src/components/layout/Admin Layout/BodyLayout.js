@@ -18,7 +18,7 @@ const BodyLayout = () => {
   }
   const items1 = ["1"].map((key) => ({
     key,
-    label: localStorage.getItem("admin_loginName"),
+    label: localStorage.getItem("login_role"),
     icon: <UserOutlined />,
   }));
   const handleLogout = (e) => {

@@ -12,15 +12,21 @@ const Dashboard = () => {
     const token = localStorage.getItem("admin_token");
     if (!token) {
       console.log("i am here.....");
-      navigate("/");
+      navigate("/admin/login");
     }
   }, []);
 
   const { Title } = Typography;
   return (
     <div>
-      <Title level={3} className="my-2">
-        Admin Dashboard
+      <Title
+        style={{
+          textTransform: "capitalize",
+        }}
+        level={3}
+        className="my-2"
+      >
+        {localStorage.getItem("login_role")} Dashboard
       </Title>
       <Title level={5} className="my-2">
         Welcome to the Dashboard !

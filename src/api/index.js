@@ -62,7 +62,7 @@ export const RiderCreateUpdate = (id, form, navigate, values) => {
   formData.append("email", values.email);
   formData.append("area_name", values.area_name);
   formData.append("phone_number", values.phone_number);
-  formData.append("role", 'rider');
+  formData.append("role", "rider");
 
   if (typeof values.picture !== "undefined" && values.picture != null) {
     formData.append("picture", values.picture.file);
@@ -129,7 +129,7 @@ export const ManagerCreateUpdate = (id, form, navigate, values) => {
   formData.append("phone_number", values.phone_number);
   formData.append("area_name", values.area_name);
   formData.append("zip_code", values.zip_code);
-  formData.append("role", 'manager');
+  formData.append("role", "manager");
 
   if (typeof values.picture !== "undefined" && values.picture != null) {
     formData.append("picture", values.picture.file);
@@ -167,7 +167,7 @@ export const LoginAdmin = (values, setAuthState) => {
 
       // Passing name in Local Storage
       localStorage.setItem("admin_token", token);
-      localStorage.setItem("admin_loginName", name);
+      localStorage.setItem("loginName", name);
       localStorage.setItem("authorize", true);
       localStorage.setItem("login_role", role);
 
@@ -187,11 +187,14 @@ export const UserLogin = (values, setAuthState) => {
     .then((response) => {
       message.success(response.data.msg);
       const token = response.data.access_token;
+
+      const role = response.data.user.roles[0].name;
       localStorage.setItem("customer_token", token);
       // Passing name in Local Storage
       const name = response.data.user.name;
-      localStorage.setItem("customer_loginName", name);
+      localStorage.setItem("loginName", name);
       localStorage.setItem("authorize", true);
+      localStorage.setItem("login_role", role);
       setAuthState({ username: "", isLoggedIn: true });
     })
     .catch((error) => {

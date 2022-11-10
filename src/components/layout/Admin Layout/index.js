@@ -17,11 +17,11 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("admin_token");
 
-  useEffect(() => {
-    if (!token) {
-      return navigate("/admin/login");
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     return navigate("/admin/login");
+  //   }
+  // }, [token]);
 
   return (
     <Layout
