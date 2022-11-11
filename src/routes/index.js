@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Index
 import AreaManger from "../components/area_manager/index";
@@ -16,7 +16,11 @@ import {
   PieChartOutlined,
   UserOutlined,
   DashboardOutlined,
+  DashboardFilled,
 } from "@ant-design/icons";
+import { Navigate, Outlet, Route } from "react-router-dom";
+import NothingFound from "../components/notfound";
+import { Switch } from "antd";
 
 const AppRoutes = [
   // Index
@@ -25,7 +29,7 @@ const AppRoutes = [
     component: <Dashboard />,
     label: "Dashboard",
     shownav: true,
-    icon: <DashboardOutlined />,
+    icon: <DashboardFilled />,
     access: ["admin", "manager", "rider"],
   },
   {
@@ -50,8 +54,9 @@ const AppRoutes = [
     label: "Items",
     shownav: false,
     icon: <PieChartOutlined />,
+    access: [],
   },
-  { path: "/admin", component: <Dashboard /> },
+  { path: "/admin", component: <Dashboard />, access: [] },
 
   // Create
   {
@@ -64,7 +69,7 @@ const AppRoutes = [
     component: <RiderCreate />,
     access: ["admin", "manager"],
   },
-  { path: "/admin/items/create", component: <AddItem /> },
+  { path: "/admin/items/create", component: <AddItem />, access: [] },
 
   // Edit
   {
@@ -77,7 +82,7 @@ const AppRoutes = [
     component: <RiderCreate />,
     access: ["admin", "manager"],
   },
-  { path: "/admin/items/edit/:id", component: <AddItem /> },
+  { path: "/admin/items/edit/:id", component: <AddItem />, access: [] },
   // ];
 
   // const UserRoutes = [
@@ -86,17 +91,10 @@ const AppRoutes = [
     component: <UserDashboard />,
     label: "Dashboard",
     shownav: true,
-    icon: <DashboardOutlined />,
+    icon: <DashboardFilled />,
     access: ["customer"],
   },
   // { path: "/user/dashboard", component: <UserDashboard /> },
 ];
-export const getAllowedRoutes = (routes) => {
-  const roles = JSON.parse(localStorage.getItem("login_roles"));
-  return routes.filter(({ access }) => {
-    if (!access) return true;
-    else return intersection(access, roles).length;
-  });
-};
-
+const roles = localStorage.getItem("login_roles");
 export { AppRoutes };
