@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { RidersList, RiderDelete } from "../../api/index";
+import useRouteSepration from "../../hooks/useRouteSepration";
 
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
+  useRouteSepration(["admin", "manager"]);
 
   useEffect(() => {
     RidersList(setDataSource, setLoading);

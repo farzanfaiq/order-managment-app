@@ -25,7 +25,7 @@ import { Switch } from "antd";
 const AppRoutes = [
   // Index
   {
-    path: "/admin/dashboard",
+    path: "/dashboard",
     component: <Dashboard />,
     label: "Dashboard",
     shownav: true,
@@ -33,7 +33,7 @@ const AppRoutes = [
     access: ["admin", "manager", "rider"],
   },
   {
-    path: "/admin/area-manager",
+    path: "/area-manager",
     component: <AreaManger />,
     label: "Area Manager",
     shownav: true,
@@ -41,7 +41,7 @@ const AppRoutes = [
     access: ["admin"],
   },
   {
-    path: "/admin/rider",
+    path: "/rider",
     component: <Rider />,
     label: "Rider",
     shownav: true,
@@ -49,7 +49,7 @@ const AppRoutes = [
     access: ["admin", "manager"],
   },
   {
-    path: "/admin/items",
+    path: "/items",
     component: <Items />,
     label: "Items",
     shownav: false,
@@ -60,29 +60,29 @@ const AppRoutes = [
 
   // Create
   {
-    path: "/admin/area-manager/create",
+    path: "/area-manager/create",
     component: <AreaManagerCreate />,
     access: ["admin"],
   },
   {
-    path: "/admin/rider/create",
+    path: "/rider/create",
     component: <RiderCreate />,
     access: ["admin", "manager"],
   },
-  { path: "/admin/items/create", component: <AddItem />, access: [] },
+  { path: "/items/create", component: <AddItem />, access: [] },
 
   // Edit
   {
-    path: "/admin/area-manager/edit/:id",
+    path: "/area-manager/edit/:id",
     component: <AreaManagerCreate />,
     access: ["admin"],
   },
   {
-    path: "/admin/rider/edit/:id",
+    path: "/rider/edit/:id",
     component: <RiderCreate />,
     access: ["admin", "manager"],
   },
-  { path: "/admin/items/edit/:id", component: <AddItem />, access: [] },
+  { path: "/items/edit/:id", component: <AddItem />, access: [] },
   // ];
 
   // const UserRoutes = [

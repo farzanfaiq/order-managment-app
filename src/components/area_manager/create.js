@@ -18,6 +18,7 @@ import { IMaskInput } from "react-imask";
 import { ManagerCreateUpdate } from "../../api/index";
 import "./area_manger.scss";
 import { useParams } from "react-router-dom";
+import useRouteSepration from "../../hooks/useRouteSepration";
 
 const layout = {
   labelCol: {
@@ -41,6 +42,7 @@ const validateMessages = {
 
 /* eslint-enable no-template-curly-in-string */
 const AreaManagerCreate = () => {
+  useRouteSepration(["admin"]);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const location = useLocation();

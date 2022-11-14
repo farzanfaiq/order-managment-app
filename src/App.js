@@ -10,6 +10,7 @@ import NothingFound from "./components/notfound";
 import Userlogin from "./components/auth/user/userlogin";
 import Usersignup from "./components/auth/user/usersignup";
 import Home from "./components/Home";
+import { getAdminRoutes, getManagerRoutes, getRiderRoutes } from "./Admin";
 
 const role = localStorage.getItem("login_role");
 
@@ -29,14 +30,9 @@ function App() {
             <Route exact path="/" element={<Home />} />
 
             <Route exact path="/" element={<MainLayout />}>
-              {AppRoutes.map(({ path, component, access }, key) => {
-                console.log(access, role);
-                if (access && access.includes(role)) {
-                  return (
-                    <Route exact path={path} element={component} key={key} />
-                  );
-                }
-              })}
+              {getAdminRoutes()}
+              {getManagerRoutes()}
+              {getRiderRoutes()}
             </Route>
             {/* <Route exact path="/user" element={<UserMainLayout />}>
               {UserRoutes.map(({ path, component }, key) => (

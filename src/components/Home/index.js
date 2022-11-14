@@ -1,10 +1,22 @@
 import { Layout, Typography } from "antd";
+import { Content } from "antd/lib/layout/layout";
 import React from "react";
+import WebNavigation from "./navigation";
 
 const Home = () => {
   const { Title } = Typography;
   return (
     <>
+      <Layout
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <Content>Company Logo</Content>
+        <Content>
+          <WebNavigation />
+        </Content>
+      </Layout>
       <Layout
         style={{
           height: "100vh",

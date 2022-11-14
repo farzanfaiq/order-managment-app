@@ -26,8 +26,9 @@ const Login = () => {
 
   const navigate = useNavigate();
   const token = localStorage.getItem("admin_token");
+  const role = localStorage.getItem("login_role");
   if (token) {
-    window.location.replace("/admin/dashboard");
+    navigate("/" + role + "/dashboard");
   }
 
   const onFinish = (values) => {

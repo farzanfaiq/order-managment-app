@@ -17,9 +17,9 @@ const SidebarLayout = () => {
       if (route.shownav && route.access.indexOf(role) > -1) {
         arr.push({
           key: key,
-          label: <Link to={route.path}>{route.label}</Link>,
+          label: <Link to={"/" + role + route.path}>{route.label}</Link>,
           icon: route.icon,
-          path: route.path,
+          path: "/" + role + route.path,
         });
       }
     });
