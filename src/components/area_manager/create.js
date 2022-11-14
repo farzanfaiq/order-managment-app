@@ -18,7 +18,7 @@ import { IMaskInput } from "react-imask";
 import { ManagerCreateUpdate } from "../../api/index";
 import "./area_manger.scss";
 import { useParams } from "react-router-dom";
-import useRouteSepration from "../../hooks/useRouteSepration";
+import { useRouteSepration } from "../../hooks/useRouteSepration";
 
 const layout = {
   labelCol: {

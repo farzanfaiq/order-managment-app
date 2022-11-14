@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { RidersList, RiderDelete } from "../../api/index";
-import useRouteSepration from "../../hooks/useRouteSepration";
+import { useRouteSepration } from "../../hooks/useRouteSepration";
 
 const Rider = () => {
   const [dataSource, setDataSource] = useState([]);

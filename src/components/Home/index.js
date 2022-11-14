@@ -7,7 +7,7 @@ const Home = () => {
   const { Title } = Typography;
   return (
     <>
-      <Layout
+      {/* <Layout
         style={{
           flexDirection: "row",
         }}
@@ -16,7 +16,7 @@ const Home = () => {
         <Content>
           <WebNavigation />
         </Content>
-      </Layout>
+      </Layout> */}
       <Layout
         style={{
           height: "100vh",

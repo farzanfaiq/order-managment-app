@@ -2,11 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../loginContext";
+import { useRouteSepration } from "../../hooks/useRouteSepration";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const authUser = useContext(LoginContext);
   console.log("auth user.........", authUser);
+
+  useRouteSepration(["admin", "manager", "rider"]);
 
   useEffect(() => {
     const token = localStorage.getItem("admin_token");

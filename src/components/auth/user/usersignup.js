@@ -21,7 +21,7 @@ const Usersignup = () => {
   const [form] = Form.useForm();
   const token = localStorage.getItem("customer_token");
   if (token) {
-    window.location.replace("/user/dashboard");
+    window.location.replace("/customer/dashboard");
   }
 
   const onFinish = (values) => {
@@ -43,7 +43,7 @@ const Usersignup = () => {
         backgroundSize: "contain",
         height: "100%",
       }}
-    //   className="h-100"
+      //   className="h-100"
     >
       <Row
         style={{
@@ -71,7 +71,7 @@ const Usersignup = () => {
                 fontWeight: "bold",
               }}
             >
-              User Signup
+              Customer Signup
             </h1>
             <h3
               style={{

@@ -1,9 +1,13 @@
 import { Layout, Typography } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NothingFound = () => {
+  const navigate = useNavigate();
   const { Title } = Typography;
+  const goBack = () => {
+    navigate("/");
+  };
   return (
     <Layout
       style={{
@@ -37,9 +41,9 @@ const NothingFound = () => {
           color: "#fff",
           textTransform: "uppercase",
         }}
-        to="/"
+        to={goBack()}
       >
-        Go back to Home
+        Go Back
       </Link>
     </Layout>
   );

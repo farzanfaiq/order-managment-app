@@ -10,7 +10,12 @@ import NothingFound from "./components/notfound";
 import Userlogin from "./components/auth/user/userlogin";
 import Usersignup from "./components/auth/user/usersignup";
 import Home from "./components/Home";
-import { getAdminRoutes, getManagerRoutes, getRiderRoutes } from "./Admin";
+import {
+  getAdminRoutes,
+  getManagerRoutes,
+  getRiderRoutes,
+  getUserRoutes,
+} from "./Admin";
 
 const role = localStorage.getItem("login_role");
 
@@ -25,14 +30,15 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route exact path="/admin/login" element={<Login />} />
-            <Route exact path="/user/login" element={<Userlogin />} />
-            <Route exact path="/user/signup" element={<Usersignup />} />
+            <Route exact path="/customer/login" element={<Userlogin />} />
+            <Route exact path="/customer/signup" element={<Usersignup />} />
             <Route exact path="/" element={<Home />} />
 
             <Route exact path="/" element={<MainLayout />}>
               {getAdminRoutes()}
               {getManagerRoutes()}
               {getRiderRoutes()}
+              {getUserRoutes()}
             </Route>
             {/* <Route exact path="/user" element={<UserMainLayout />}>
               {UserRoutes.map(({ path, component }, key) => (

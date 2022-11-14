@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 import { RiderCreateUpdate } from "../../api/index";
 import "../area_manager/area_manger.scss";
-import useRouteSepration from "../../hooks/useRouteSepration";
+import { useRouteSepration } from "../../hooks/useRouteSepration";
 
 const layout = {
   labelCol: {

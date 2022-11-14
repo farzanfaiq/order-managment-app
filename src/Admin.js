@@ -28,14 +28,26 @@ export function getManagerRoutes() {
   return routes;
 }
 export function getRiderRoutes() {
-    const routes = [];
-    AppRoutes.map(({ path, component, access }, key) => {
-      console.log("access..............", access);
-      if (access.includes("rider")) {
-        routes.push(
-          <Route exact path={"/rider" + path} element={component} key={key} />
-        );
-      }
-    });
-    return routes;
-  }
+  const routes = [];
+  AppRoutes.map(({ path, component, access }, key) => {
+    console.log("access..............", access);
+    if (access.includes("rider")) {
+      routes.push(
+        <Route exact path={"/rider" + path} element={component} key={key} />
+      );
+    }
+  });
+  return routes;
+}
+export function getUserRoutes() {
+  const routes = [];
+  AppRoutes.map(({ path, component, access }, key) => {
+    console.log("access..............", access);
+    if (access.includes("customer")) {
+      routes.push(
+        <Route exact path={"/customer" + path} element={component} key={key} />
+      );
+    }
+  });
+  return routes;
+}

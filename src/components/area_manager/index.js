@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ManagerList, ManagerDelete } from "../../api/index";
-import useRouteSepration from "../../hooks/useRouteSepration";
+import {useRouteSepration} from "../../hooks/useRouteSepration";
 
 const AreaManager = () => {
   const [dataSource, setDataSource] = useState([]);

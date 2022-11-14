@@ -27,7 +27,7 @@ const Userlogin = () => {
   // }, []);
   const token = localStorage.getItem("customer_token");
   if (token) {
-    navigate("/user/dashboard");
+    navigate("/customer/dashboard");
   }
 
   const onFinish = (values) => {
@@ -76,7 +76,7 @@ const Userlogin = () => {
                 fontWeight: "bold",
               }}
             >
-              User Login
+              Customer Login
             </h1>
             <h3
               style={{

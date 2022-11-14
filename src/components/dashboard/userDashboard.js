@@ -2,18 +2,20 @@ import React, { useContext, useEffect } from "react";
 import { Typography, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../loginContext";
+import { useRouteSepration } from "../../hooks/useRouteSepration";
 
 const UserDashboard = () => {
   const { Title } = Typography;
   const navigate = useNavigate();
   const authUser = useContext(LoginContext);
   console.log("auth user.........", authUser);
+  useRouteSepration(["customer"]);
 
   useEffect(() => {
     const token = localStorage.getItem("customer_token");
     if (!token) {
       console.log("i am here.....");
-      navigate("/user/login");
+      navigate("/customer/login");
     }
   }, []);
   return (

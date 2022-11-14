@@ -87,7 +87,7 @@ const AppRoutes = [
 
   // const UserRoutes = [
   {
-    path: "/user/dashboard",
+    path: "/dashboard",
     component: <UserDashboard />,
     label: "Dashboard",
     shownav: true,
